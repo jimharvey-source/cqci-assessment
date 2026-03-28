@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charisma Quadrant Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #0f1f38;
+    --navy-mid:  #1a3357;
+    --navy-soft: #243d63;
+    --teal:      #1a7a6e;
+    --teal-light:#d4efeb;
+    --gold:      #c9a84c;
+    --gold-pale: #f5efd8;
+    --off-white: #f8f6f1;
+    --white:     #ffffff;
+    --text:      #1a1a2e;
+    --muted:     #6b7280;
+    --border:    #ddd8ce;
+    --conf:      #1a3357;
+    --soc:       #1a7a6e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: rgba(255,255,255,0.15); z-index: 100;
+  }
+  #progress-fill {
+    height: 100%; background: var(--gold);
+    width: 0%; transition: width 0.4s ease;
+  }
+
+  /* ── HERO ── */
+  #screen-intro {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 60px 24px;
+    position: relative; overflow: hidden;
+  }
+  #screen-intro::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #1e3d6e 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .intro-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 16px; border-radius: 2px;
+    margin-bottom: 40px;
+  }
+  .intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 7vw, 72px);
+    font-weight: 700; color: var(--white);
+    text-align: center; line-height: 1.1;
+    max-width: 800px; margin-bottom: 16px;
+  }
+  .intro-title span { color: var(--gold); }
+  .intro-subtitle {
+    font-size: 17px; color: rgba(255,255,255,0.6);
+    text-align: center; max-width: 520px;
+    margin-bottom: 56px; font-weight: 300; line-height: 1.7;
+  }
+  .intro-meta {
+    display: flex; gap: 40px; margin-bottom: 56px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .intro-meta-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .intro-meta-item strong {
+    font-size: 22px; color: var(--white); font-weight: 600;
+  }
+  .intro-meta-item span {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.5px;
+    border: none; padding: 18px 52px; cursor: pointer;
+    border-radius: 2px; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #d4b060; transform: translateY(-1px); }
+  .intro-note {
+    margin-top: 24px; font-size: 13px;
+    color: rgba(255,255,255,0.3); text-align: center;
+  }
+
+  /* ── QUESTION SCREEN ── */
+  #screen-questions { display: none; padding: 0; }
+
+  .q-header {
+    background: var(--navy); padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .q-header-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; color: rgba(255,255,255,0.7); font-weight: 400;
+  }
+  .q-header-count {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+  }
+
+  .q-body {
+    max-width: 760px; margin: 0 auto;
+    padding: 48px 24px 100px;
+  }
+
+  .part-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .part-label-bar { width: 32px; height: 2px; }
+  .part-label-text {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .part-a .part-label-bar { background: var(--conf); }
+  .part-a .part-label-text { color: var(--conf); }
+  .part-b .part-label-bar { background: var(--soc); }
+  .part-b .part-label-text { color: var(--soc); }
+
+  .subscale-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 600; color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .subscale-desc {
+    font-size: 14px; color: var(--muted); margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--white); border-radius: 4px;
+    border: 1px solid var(--border);
+    padding: 28px 32px; margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .question-card.answered {
+    border-color: rgba(26,51,87,0.25);
+    box-shadow: 0 2px 12px rgba(26,51,87,0.06);
+  }
+  .question-card:hover { border-color: rgba(26,51,87,0.3); }
+
+  .q-number {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px; font-weight: 500;
+  }
+  .q-text {
+    font-size: 16px; line-height: 1.65; color: var(--text);
+    margin-bottom: 24px; font-weight: 400;
+  }
+
+  .scale-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  }
+  .scale-option { display: none; }
+  .scale-label {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px; cursor: pointer; padding: 12px 4px;
+    border: 1px solid var(--border); border-radius: 3px;
+    transition: all 0.15s; text-align: center;
+    background: var(--off-white);
+  }
+  .scale-label:hover {
+    border-color: var(--navy); background: rgba(26,51,87,0.04);
+  }
+  .scale-option:checked + .scale-label {
+    background: var(--navy); border-color: var(--navy); color: var(--white);
+  }
+  .scale-option:checked + .scale-label .scale-num { color: var(--white); }
+  .scale-option:checked + .scale-label .scale-word { color: rgba(255,255,255,0.7); }
+  .scale-num {
+    font-size: 18px; font-weight: 600; color: var(--navy);
+    font-family: 'Playfair Display', serif;
+  }
+  .scale-word {
+    font-size: 10px; color: var(--muted); letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  .part-b .scale-option:checked + .scale-label {
+    background: var(--teal); border-color: var(--teal);
+  }
+
+  .section-divider {
+    margin: 48px 0 40px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-divider-line {
+    flex: 1; height: 1px; background: var(--border);
+  }
+  .section-divider-text {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+  }
+
+  /* ── STICKY FOOTER ── */
+  .q-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--white); border-top: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 50;
+  }
+  .q-footer-info { font-size: 13px; color: var(--muted); }
+  .q-footer-info strong { color: var(--text); }
+  .btn-submit {
+    background: var(--navy); color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+    border: none; padding: 14px 40px; cursor: pointer;
+    border-radius: 2px; transition: all 0.2s; opacity: 0.4;
+    pointer-events: none;
+  }
+  .btn-submit.ready { opacity: 1; pointer-events: auto; }
+  .btn-submit.ready:hover { background: var(--navy-mid); }
+
+  /* ── EMAIL SCREEN ── */
+  #screen-email {
+    display: none;
+    min-height: 100vh;
+    background: var(--navy);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+  #screen-email.active { display: flex; }
+
+  .email-card {
+    background: var(--white); border-radius: 4px;
+    max-width: 520px; width: 100%;
+    padding: 52px 48px; text-align: center;
+  }
+  .email-card-icon {
+    width: 56px; height: 56px; background: var(--gold-pale);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 28px;
+    font-size: 22px;
+  }
+  .email-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: var(--navy); margin-bottom: 12px;
+  }
+  .email-card .email-intro {
+    font-size: 15px; color: var(--muted); line-height: 1.7;
+    margin-bottom: 8px; font-weight: 300;
+  }
+  .email-card .email-value {
+    font-size: 14px; color: var(--text); line-height: 1.8;
+    margin-bottom: 28px; font-weight: 400;
+    text-align: left;
+    border-left: 2px solid var(--gold);
+    padding-left: 16px;
+  }
+  .email-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border); border-radius: 2px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px;
+    color: var(--text); background: var(--off-white);
+    margin-bottom: 8px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-input:focus { border-color: var(--navy); background: var(--white); }
+  .email-input.error { border-color: #c0392b; }
+  .email-error-msg {
+    font-size: 12px; color: #c0392b;
+    margin-bottom: 12px; text-align: left; display: none;
+  }
+  .email-error-msg.visible { display: block; }
+  .btn-email-submit {
+    width: 100%; background: var(--navy); color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    border: none; padding: 16px; cursor: pointer; border-radius: 2px;
+    transition: background 0.2s; margin-bottom: 0;
+  }
+  .btn-email-submit:hover { background: var(--navy-mid); }
+  .btn-email-submit:disabled {
+    opacity: 0.6; cursor: not-allowed;
+  }
+  .email-submitting-msg {
+    font-size: 13px; color: var(--muted); margin-top: 12px;
+    text-align: center; display: none;
+  }
+  .email-submitting-msg.visible { display: block; }
+  .email-privacy {
+    font-size: 12px; color: var(--muted); margin-top: 14px;
+    text-align: center;
+  }
+
+  /* ── RESULTS SCREEN ── */
+  #screen-results {
+    display: none;
+    background: var(--off-white);
+    min-height: 100vh; padding-bottom: 80px;
+  }
+  #screen-results.active { display: block; }
+
+  .results-hero {
+    background: var(--navy); padding: 60px 24px 80px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .results-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 100%, #1e3d6e 0%, transparent 70%);
+  }
+  .results-hero-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px; font-weight: 500;
+    position: relative;
+  }
+  .results-quadrant-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 9vw, 80px); font-weight: 700;
+    color: var(--white); line-height: 1; margin-bottom: 16px;
+    position: relative;
+  }
+  .results-quadrant-tag {
+    font-size: 16px; color: rgba(255,255,255,0.55);
+    margin-bottom: 0; font-weight: 300; position: relative;
+  }
+
+  .results-body {
+    max-width: 760px; margin: 0 auto; padding: 0 24px;
+  }
+
+  .score-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: -36px; margin-bottom: 40px; position: relative; z-index: 10;
+  }
+  .score-card {
+    background: var(--white); border-radius: 4px;
+    border: 1px solid var(--border);
+    padding: 28px 24px; text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .score-card-label {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px; font-weight: 500;
+  }
+  .score-card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; font-weight: 700; line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-card-max { font-size: 14px; color: var(--muted); }
+  .score-card-bar {
+    height: 4px; border-radius: 2px;
+    background: var(--border); margin-top: 16px; overflow: hidden;
+  }
+  .score-card-fill {
+    height: 100%; border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+  .conf-card .score-card-value { color: var(--conf); }
+  .conf-card .score-card-fill { background: var(--conf); }
+  .soc-card .score-card-value { color: var(--soc); }
+  .soc-card .score-card-fill { background: var(--soc); }
+
+  .quadrant-desc-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 40px; margin-bottom: 24px;
+  }
+  .quadrant-desc-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--navy); margin-bottom: 16px;
+  }
+  .quadrant-desc-card p {
+    font-size: 16px; line-height: 1.8; color: #374151; font-weight: 300;
+  }
+
+  .quadrant-grid-section { margin-bottom: 24px; }
+  .quadrant-grid-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--navy); margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .q-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    background: var(--border);
+  }
+  .q-grid-cell {
+    padding: 24px 20px; background: var(--white);
+    text-align: center; position: relative;
+  }
+  .q-grid-cell.active { background: var(--navy); }
+  .q-grid-cell.active .qg-name { color: var(--white); }
+  .q-grid-cell.active .qg-tag { color: rgba(255,255,255,0.55); }
+  .q-grid-cell.active::after {
+    content: '▸ You';
+    position: absolute; top: 8px; right: 10px;
+    font-size: 10px; letter-spacing: 1px; color: var(--gold);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .qg-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600; color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .qg-tag { font-size: 12px; color: var(--muted); }
+
+  .breakdown-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 32px 40px; margin-bottom: 24px;
+  }
+  .breakdown-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--navy); margin-bottom: 24px; font-weight: 600;
+  }
+  .breakdown-row { margin-bottom: 20px; }
+  .breakdown-row:last-child { margin-bottom: 0; }
+  .breakdown-row-head {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 6px;
+  }
+  .breakdown-row-name { font-size: 14px; color: var(--text); font-weight: 500; }
+  .breakdown-row-score { font-size: 13px; color: var(--muted); }
+  .breakdown-bar {
+    height: 6px; background: var(--border);
+    border-radius: 3px; overflow: hidden;
+  }
+  .breakdown-fill {
+    height: 100%; border-radius: 3px;
+    transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .cta-card {
+    background: var(--navy); border-radius: 4px;
+    padding: 48px 40px; text-align: center; margin-bottom: 24px;
+  }
+  .cta-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; color: var(--white); margin-bottom: 12px;
+  }
+  .cta-card p {
+    font-size: 15px; color: rgba(255,255,255,0.55);
+    margin-bottom: 28px; font-weight: 300; max-width: 420px;
+    margin-left: auto; margin-right: auto; line-height: 1.7;
+  }
+  .btn-cta {
+    background: var(--gold); color: var(--navy);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+    border: none; padding: 16px 44px; cursor: pointer;
+    border-radius: 2px; transition: background 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-cta:hover { background: #d4b060; }
+
+  .retake-row { text-align: center; margin-top: 8px; }
+  .btn-retake {
+    background: none; border: none; color: var(--muted);
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    cursor: pointer; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .btn-retake:hover { color: var(--text); }
+
+  .screen-fade { animation: fadeUp 0.5s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 560px) {
+    .email-card { padding: 40px 28px; }
+    .score-cards { grid-template-columns: 1fr; }
+    .q-grid { grid-template-columns: 1fr; }
+    .scale-word { display: none; }
+    .breakdown-card, .quadrant-desc-card { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<!-- ══ INTRO ══════════════════════════════════════════════════════════════════ -->
+<section id="screen-intro">
+  <div class="intro-badge">Open-Source Charisma 4.0</div>
+  <h1 class="intro-title">The Charisma<br><span>Quadrant</span> Assessment</h1>
+  <p class="intro-subtitle">Forty questions. Two dimensions. One clear picture of how you come across — and where to focus next.</p>
+  <div class="intro-meta">
+    <div class="intro-meta-item"><strong>40</strong><span>Questions</span></div>
+    <div class="intro-meta-item"><strong>10'</strong><span>Average time</span></div>
+    <div class="intro-meta-item"><strong>4</strong><span>Quadrant types</span></div>
+  </div>
+  <button class="btn-primary" onclick="startAssessment()">Begin the Assessment</button>
+  <p class="intro-note">No right or wrong answers — rate how you typically behave, not how you'd like to.</p>
+</section>
+
+<!-- ══ QUESTIONS ══════════════════════════════════════════════════════════════ -->
+<section id="screen-questions">
+  <div class="q-header">
+    <span class="q-header-brand">Charisma Quadrant</span>
+    <span class="q-header-count" id="header-count">0 / 40</span>
+  </div>
+  <div class="q-body" id="q-body"></div>
+  <div class="q-footer">
+    <div class="q-footer-info">
+      <strong id="footer-answered">0</strong> of 40 answered
+    </div>
+    <button class="btn-submit" id="btn-submit" onclick="submitAssessment()">See My Results →</button>
+  </div>
+</section>
+
+<!-- ══ EMAIL ══════════════════════════════════════════════════════════════════ -->
+<section id="screen-email">
+  <div class="email-card screen-fade">
+    <div class="email-card-icon">✉</div>
+    <h2>Your results are ready</h2>
+    <p class="email-intro">Enter your email below. We'll send you a full breakdown of your quadrant type, plus practical steps to develop from where you are.</p>
+    <div class="email-value">
+      Your quadrant type and scores<br>
+      A personalised development plan<br>
+      Practical actions for this week, this month, and this year
+    </div>
+    <input type="email" class="email-input" id="email-input" placeholder="your@email.com" onkeydown="handleEmailKey(event)">
+    <div class="email-error-msg" id="email-error">Please enter a valid email address.</div>
+    <button class="btn-email-submit" id="btn-email-submit" onclick="submitEmail()">Send me my results</button>
+    <div class="email-submitting-msg" id="email-submitting">Sending — one moment...</div>
+    <p class="email-privacy">No spam. Unsubscribe at any time.</p>
+  </div>
+</section>
+
+<!-- ══ RESULTS ════════════════════════════════════════════════════════════════ -->
+<section id="screen-results">
+  <div class="results-hero">
+    <p class="results-hero-label">Your Quadrant Type</p>
+    <h2 class="results-quadrant-name" id="result-name">—</h2>
+    <p class="results-quadrant-tag" id="result-tag">—</p>
+  </div>
+
+  <div class="results-body">
+
+    <div class="score-cards">
+      <div class="score-card conf-card">
+        <div class="score-card-label">Confidence</div>
+        <div class="score-card-value" id="conf-score">—</div>
+        <div class="score-card-max">out of 100</div>
+        <div class="score-card-bar"><div class="score-card-fill" id="conf-bar"></div></div>
+      </div>
+      <div class="score-card soc-card">
+        <div class="score-card-label">Social Skills</div>
+        <div class="score-card-value" id="soc-score">—</div>
+        <div class="score-card-max">out of 100</div>
+        <div class="score-card-bar"><div class="score-card-fill" id="soc-bar"></div></div>
+      </div>
+    </div>
+
+    <div class="quadrant-desc-card">
+      <h3 id="desc-heading">—</h3>
+      <p id="desc-text">—</p>
+    </div>
+
+    <div class="quadrant-grid-section">
+      <h3>Where you sit in the quadrant</h3>
+      <div class="q-grid">
+        <div class="q-grid-cell" id="cell-arrogant">
+          <div class="qg-name">Arrogant</div>
+          <div class="qg-tag">High confidence · Lower social skills</div>
+        </div>
+        <div class="q-grid-cell" id="cell-charismatic">
+          <div class="qg-name">Charismatic</div>
+          <div class="qg-tag">High confidence · High social skills</div>
+        </div>
+        <div class="q-grid-cell" id="cell-invisible">
+          <div class="qg-name">Invisible</div>
+          <div class="qg-tag">Lower confidence · Lower social skills</div>
+        </div>
+        <div class="q-grid-cell" id="cell-influential">
+          <div class="qg-name">Influential</div>
+          <div class="qg-tag">Lower confidence · High social skills</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="breakdown-card">
+      <h3>Confidence — subscale scores</h3>
+      <div id="conf-breakdown"></div>
+    </div>
+
+    <div class="breakdown-card">
+      <h3>Social Skills — subscale scores</h3>
+      <div id="soc-breakdown"></div>
+    </div>
+
+    <div class="cta-card">
+      <h3>Read the book</h3>
+      <p>Open-Source Charisma explores how all four quadrant types develop — and what changes when you move.</p>
+      <a class="btn-cta" href="https://www.themessagebusiness.com" target="_blank">Find out more</a>
+    </div>
+
+    <div class="retake-row">
+      <button class="btn-retake" onclick="retake()">Retake the assessment</button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// MAILCHIMP CONFIGURATION
+// Replace these two values before going live:
+//   MAILCHIMP_ACTION — the POST URL from your Mailchimp embedded form code
+//   MAILCHIMP_FIELD  — the email field name from your Mailchimp embedded form code
+//                      (usually "EMAIL" but check your form HTML)
+// ─────────────────────────────────────────────────────────────────────────────
+const MAILCHIMP_ACTION = 'https://YOUR_MAILCHIMP_FORM_ACTION_URL_HERE';
+const MAILCHIMP_FIELD  = 'EMAIL';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// QUESTIONS
+// ─────────────────────────────────────────────────────────────────────────────
+const QUESTIONS = [
+  // Part A — Confidence
+  { id:1,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I feel confident in my ability to make important decisions.',                                        rev:false },
+  { id:2,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I often hesitate to express my opinions in group settings.',                                        rev:true  },
+  { id:3,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I take initiative to start new projects or ideas rather than waiting to be asked.',                 rev:false },
+  { id:4,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I can clearly articulate my own strengths.',                                                        rev:false },
+  { id:5,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I feel uncomfortable when receiving feedback about my performance.',                                rev:true  },
+  { id:6,  part:'a', subscale:'Resilience & Composure',         text:'I handle criticism without taking it personally.',                                                  rev:false },
+  { id:7,  part:'a', subscale:'Resilience & Composure',         text:'I remain positive and motivated even after setbacks.',                                              rev:false },
+  { id:8,  part:'a', subscale:'Resilience & Composure',         text:'I struggle to maintain composure when under pressure.',                                             rev:true  },
+  { id:9,  part:'a', subscale:'Resilience & Composure',         text:'I make decisions confidently even when the picture isn\'t complete.',                               rev:false },
+  { id:10, part:'a', subscale:'Resilience & Composure',         text:'I feel anxious when taking on leadership responsibilities.',                                        rev:true  },
+  { id:11, part:'a', subscale:'Assertiveness & Accountability', text:'I can assert myself without being aggressive or defensive.',                                        rev:false },
+  { id:12, part:'a', subscale:'Assertiveness & Accountability', text:'I feel comfortable taking responsibility for my actions and decisions.',                            rev:false },
+  { id:13, part:'a', subscale:'Assertiveness & Accountability', text:'I feel uncomfortable networking with influential or senior people.',                                rev:true  },
+  { id:14, part:'a', subscale:'Assertiveness & Accountability', text:'I speak up with confidence when I have something important to contribute.',                        rev:false },
+  { id:15, part:'a', subscale:'Assertiveness & Accountability', text:'I find it hard to talk openly about my achievements.',                                             rev:true  },
+  { id:16, part:'a', subscale:'Growth & Adaptability',          text:'I seek opportunities for personal and professional growth.',                                        rev:false },
+  { id:17, part:'a', subscale:'Growth & Adaptability',          text:'I am open to learning from both successes and failures.',                                           rev:false },
+  { id:18, part:'a', subscale:'Growth & Adaptability',          text:'I adapt well to new situations and challenges.',                                                    rev:false },
+  { id:19, part:'a', subscale:'Growth & Adaptability',          text:'I avoid trying new things because I worry about failing.',                                         rev:true  },
+  { id:20, part:'a', subscale:'Growth & Adaptability',          text:'I regularly set and work towards meaningful personal goals.',                                       rev:false },
+
+  // Part B — Social Skills
+  { id:21, part:'b', subscale:'Empathy & Listening',            text:'I give others my full attention when they are speaking.',                                           rev:false },
+  { id:22, part:'b', subscale:'Empathy & Listening',            text:'I often interrupt others when they\'re talking.',                                                   rev:true  },
+  { id:23, part:'b', subscale:'Empathy & Listening',            text:'I demonstrate understanding and support when others face difficulties.',                            rev:false },
+  { id:24, part:'b', subscale:'Empathy & Listening',            text:'I find it easy to recognise and respond to others\' emotions.',                                    rev:false },
+  { id:25, part:'b', subscale:'Empathy & Listening',            text:'I tend to dismiss or minimise others\' feelings.',                                                  rev:true  },
+  { id:26, part:'b', subscale:'Warmth & Social Courtesy',       text:'I greet people with genuine friendliness and warmth.',                                              rev:false },
+  { id:27, part:'b', subscale:'Warmth & Social Courtesy',       text:'I show appreciation and gratitude to others regularly.',                                            rev:false },
+  { id:28, part:'b', subscale:'Warmth & Social Courtesy',       text:'I struggle to make people feel welcomed and included.',                                             rev:true  },
+  { id:29, part:'b', subscale:'Warmth & Social Courtesy',       text:'I am consistently polite and considerate in my interactions.',                                     rev:false },
+  { id:30, part:'b', subscale:'Warmth & Social Courtesy',       text:'I rarely thank people or acknowledge their contributions.',                                        rev:true  },
+  { id:31, part:'b', subscale:'Conversational Skills',          text:'I engage others in meaningful and balanced conversations.',                                         rev:false },
+  { id:32, part:'b', subscale:'Conversational Skills',          text:'I tend to dominate conversations, talking more than listening.',                                    rev:true  },
+  { id:33, part:'b', subscale:'Conversational Skills',          text:'I adapt my communication style to suit different audiences.',                                      rev:false },
+  { id:34, part:'b', subscale:'Conversational Skills',          text:'I can easily initiate conversations with people I don\'t know well.',                              rev:false },
+  { id:35, part:'b', subscale:'Conversational Skills',          text:'I find it difficult to sustain conversations with people I don\'t know well.',                     rev:true  },
+  { id:36, part:'b', subscale:'Emotional Control & Humility',   text:'I remain calm and composed in social conflicts.',                                                   rev:false },
+  { id:37, part:'b', subscale:'Emotional Control & Humility',   text:'I acknowledge my mistakes and learn from them openly.',                                            rev:false },
+  { id:38, part:'b', subscale:'Emotional Control & Humility',   text:'I lose my temper easily when disagreements arise.',                                                rev:true  },
+  { id:39, part:'b', subscale:'Emotional Control & Humility',   text:'I give credit to team members for their contributions and successes.',                             rev:false },
+  { id:40, part:'b', subscale:'Emotional Control & Humility',   text:'I tend to take more credit for group achievements than I probably deserve.',                       rev:true  },
+];
+
+const SCALE_LABELS = ['Strongly\nDisagree','Disagree','Neither','Agree','Strongly\nAgree'];
+
+const QUADRANTS = {
+  charismatic: {
+    name: 'Charismatic',
+    tag: 'High Confidence · High Social Skills',
+    heading: 'You have both the inner game and the outer game.',
+    text: 'You carry yourself well and connect easily with others. People feel your presence. The risk is complacency — when things come naturally, the sharpest communicators still keep working at it. The real opportunity is to help others develop what you take for granted.',
+    cell: 'cell-charismatic'
+  },
+  arrogant: {
+    name: 'Arrogant',
+    tag: 'High Confidence · Lower Social Skills',
+    heading: 'You have conviction and drive — but others may not always feel heard.',
+    text: 'Your confidence gets things done. But people around you may experience your certainty as dismissiveness. The fix is usually simpler than it sounds: slow down, ask more questions, and listen to the answers. Your credibility will grow, not shrink.',
+    cell: 'cell-arrogant'
+  },
+  influential: {
+    name: 'Influential',
+    tag: 'Lower Confidence · High Social Skills',
+    heading: 'You are perceptive, warm, and well-liked — and you hold yourself back.',
+    text: 'People trust you and enjoy your company. What limits you is your own hesitation. You often have the right answer but wait for someone else to say it first. The work is about backing yourself, not changing who you are.',
+    cell: 'cell-influential'
+  },
+  invisible: {
+    name: 'Invisible',
+    tag: 'Lower Confidence · Lower Social Skills',
+    heading: 'This is the most common starting point — and it is not a fixed state.',
+    text: 'Confidence and social skill are both learnable. The question is where you want to start — with how you come across to others, or with how you see yourself. Either path works. The fact that you\'ve completed this assessment means you\'re already moving.',
+    cell: 'cell-invisible'
+  }
+};
+
+const SUBSCALE_COLORS = { a: '#1a3357', b: '#1a7a6e' };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────────────────────
+let answers = {};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER QUESTIONS
+// ─────────────────────────────────────────────────────────────────────────────
+function renderQuestions() {
+  const body = document.getElementById('q-body');
+  let html = '';
+  let lastSubscale = '';
+  let lastPart = '';
+
+  QUESTIONS.forEach(q => {
+    if (q.part !== lastPart) {
+      if (lastPart !== '') {
+        html += `<div class="section-divider">
+          <div class="section-divider-line"></div>
+          <div class="section-divider-text">Part B — Social Skills</div>
+          <div class="section-divider-line"></div>
+        </div>`;
+      }
+      lastPart = q.part;
+      lastSubscale = '';
+    }
+
+    if (q.subscale !== lastSubscale) {
+      const partClass = q.part === 'a' ? 'part-a' : 'part-b';
+      const partLabel = q.part === 'a' ? 'Part A — Confidence' : 'Part B — Social Skills';
+      const show = (lastSubscale === '' && q.part === 'a')
+        ? `<div class="part-label ${partClass}"><div class="part-label-bar"></div><div class="part-label-text">${partLabel}</div></div>`
+        : '';
+      html += `${show}<div class="subscale-heading">${q.subscale}</div>`;
+      lastSubscale = q.subscale;
+    }
+
+    const scaleOptions = [1,2,3,4,5].map(n => {
+      const words = SCALE_LABELS[n-1].replace('\n','<br>');
+      return `
+        <input type="radio" class="scale-option" name="q${q.id}" id="q${q.id}n${n}" value="${n}" onchange="recordAnswer(${q.id}, ${n})">
+        <label class="scale-label" for="q${q.id}n${n}">
+          <span class="scale-num">${n}</span>
+          <span class="scale-word">${words}</span>
+        </label>`;
+    }).join('');
+
+    const partClass = q.part === 'b' ? 'part-b' : '';
+    html += `
+      <div class="question-card ${partClass}" id="card-${q.id}">
+        <div class="q-number">Question ${q.id}</div>
+        <div class="q-text">${q.text}</div>
+        <div class="scale-row">${scaleOptions}</div>
+      </div>`;
+  });
+
+  body.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────────────────────────
+function startAssessment() {
+  document.getElementById('screen-intro').style.display = 'none';
+  document.getElementById('screen-questions').style.display = 'block';
+  renderQuestions();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function recordAnswer(qId, val) {
+  answers[qId] = val;
+  document.getElementById(`card-${qId}`).classList.add('answered');
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = Object.keys(answers).length;
+  const pct = (count / 40) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('header-count').textContent = count + ' / 40';
+  document.getElementById('footer-answered').textContent = count;
+  const btn = document.getElementById('btn-submit');
+  if (count === 40) btn.classList.add('ready');
+  else btn.classList.remove('ready');
+}
+
+function submitAssessment() {
+  if (Object.keys(answers).length < 40) return;
+  document.getElementById('screen-questions').style.display = 'none';
+  document.getElementById('screen-email').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EMAIL / MAILCHIMP
+// ─────────────────────────────────────────────────────────────────────────────
+function handleEmailKey(e) {
+  if (e.key === 'Enter') submitEmail();
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitEmail() {
+  const emailInput = document.getElementById('email-input');
+  const errorMsg   = document.getElementById('email-error');
+  const submitBtn  = document.getElementById('btn-email-submit');
+  const loadingMsg = document.getElementById('email-submitting');
+  const email      = emailInput.value.trim();
+
+  // Validate
+  if (!isValidEmail(email)) {
+    emailInput.classList.add('error');
+    errorMsg.classList.add('visible');
+    emailInput.focus();
+    return;
+  }
+  emailInput.classList.remove('error');
+  errorMsg.classList.remove('visible');
+
+  // Disable button and show loading
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  loadingMsg.classList.add('visible');
+
+  // Submit to Mailchimp via JSONP (avoids CORS)
+  // Mailchimp embedded forms use a /post-json endpoint with callback=?
+  const url = MAILCHIMP_ACTION.replace('/post?', '/post-json?') + `&${MAILCHIMP_FIELD}=${encodeURIComponent(email)}&c=mailchimpCallback`;
+
+  const script = document.createElement('script');
+  window.mailchimpCallback = function(data) {
+    script.remove();
+    delete window.mailchimpCallback;
+    // Whether success or already-subscribed, proceed to results
+    showResults();
+  };
+
+  script.src = url;
+  script.onerror = function() {
+    // On network error, still show results — don't block the user
+    script.remove();
+    delete window.mailchimpCallback;
+    showResults();
+  };
+
+  document.head.appendChild(script);
+
+  // Fallback: if Mailchimp doesn't respond in 4 seconds, proceed anyway
+  setTimeout(function() {
+    if (window.mailchimpCallback) {
+      delete window.mailchimpCallback;
+      showResults();
+    }
+  }, 4000);
+}
+
+function showResults() {
+  document.getElementById('screen-email').classList.remove('active');
+  document.getElementById('screen-results').classList.add('active');
+  window.scrollTo(0, 0);
+  calculateAndRender();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SCORING
+// ─────────────────────────────────────────────────────────────────────────────
+function scoreItem(qId, raw) {
+  const q = QUESTIONS.find(x => x.id === qId);
+  return q.rev ? (6 - raw) : raw;
+}
+
+function calculateAndRender() {
+  let confTotal = 0, socTotal = 0;
+  const subscaleScores = {};
+
+  QUESTIONS.forEach(q => {
+    const raw   = answers[q.id] || 3;
+    const score = scoreItem(q.id, raw);
+    if (q.part === 'a') confTotal += score;
+    else socTotal += score;
+
+    if (!subscaleScores[q.subscale]) {
+      subscaleScores[q.subscale] = { total: 0, count: 0, part: q.part };
+    }
+    subscaleScores[q.subscale].total += score;
+    subscaleScores[q.subscale].count++;
+  });
+
+  const confScore = confTotal;
+  const socScore  = socTotal;
+
+  // Quadrant threshold = 60
+  let quadrant;
+  if      (confScore > 60 && socScore > 60)  quadrant = QUADRANTS.charismatic;
+  else if (confScore > 60 && socScore <= 60) quadrant = QUADRANTS.arrogant;
+  else if (confScore <= 60 && socScore > 60) quadrant = QUADRANTS.influential;
+  else                                        quadrant = QUADRANTS.invisible;
+
+  // Hero
+  document.getElementById('result-name').textContent = quadrant.name;
+  document.getElementById('result-tag').textContent  = quadrant.tag;
+
+  // Scores
+  document.getElementById('conf-score').textContent = confScore;
+  document.getElementById('soc-score').textContent  = socScore;
+
+  // Animate score bars
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.getElementById('conf-bar').style.width = confScore + '%';
+      document.getElementById('soc-bar').style.width  = socScore  + '%';
+    }, 100);
+  });
+
+  // Description
+  document.getElementById('desc-heading').textContent = quadrant.heading;
+  document.getElementById('desc-text').textContent    = quadrant.text;
+
+  // Quadrant grid
+  ['cell-charismatic','cell-arrogant','cell-influential','cell-invisible'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById(quadrant.cell).classList.add('active');
+
+  // Subscale breakdowns
+  const confSubs = Object.entries(subscaleScores).filter(([,v]) => v.part === 'a');
+  const socSubs  = Object.entries(subscaleScores).filter(([,v]) => v.part === 'b');
+
+  function renderBreakdown(containerId, subs, color) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = subs.map(([name, data]) => {
+      const pct = Math.round((data.total / (data.count * 5)) * 100);
+      return `<div class="breakdown-row">
+        <div class="breakdown-row-head">
+          <span class="breakdown-row-name">${name}</span>
+          <span class="breakdown-row-score">${pct}%</span>
+        </div>
+        <div class="breakdown-bar">
+          <div class="breakdown-fill" style="background:${color}" data-pct="${pct}"></div>
+        </div>
+      </div>`;
+    }).join('');
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        el.querySelectorAll('.breakdown-fill').forEach(bar => {
+          bar.style.width = bar.dataset.pct + '%';
+        });
+      }, 200);
+    });
+  }
+
+  renderBreakdown('conf-breakdown', confSubs, SUBSCALE_COLORS.a);
+  renderBreakdown('soc-breakdown',  socSubs,  SUBSCALE_COLORS.b);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RETAKE
+// ─────────────────────────────────────────────────────────────────────────────
+function retake() {
+  answers = {};
+  document.getElementById('screen-results').classList.remove('active');
+  document.getElementById('screen-intro').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
