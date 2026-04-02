@@ -137,7 +137,9 @@
     display: inline-flex; align-items: center; gap: 10px;
     margin-bottom: 32px;
   }
-  .part-label-bar { width: 32px; height: 2px; }
+  .part-label-bar {
+    width: 32px; height: 2px;
+  }
   .part-label-text {
     font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
     font-weight: 500;
@@ -207,6 +209,7 @@
     line-height: 1.3;
   }
 
+  /* Part B colour variant */
   .part-b .scale-option:checked + .scale-label {
     background: var(--teal); border-color: var(--teal);
   }
@@ -246,16 +249,11 @@
 
   /* ── EMAIL SCREEN ── */
   #screen-email {
-    display: none;
-    min-height: 100vh;
+    display: none; min-height: 100vh;
     background: var(--navy);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
+    align-items: center; justify-content: center;
+    padding: 60px 24px; flex-direction: column;
   }
-  #screen-email.active { display: flex; }
-
   .email-card {
     background: var(--white); border-radius: 4px;
     max-width: 520px; width: 100%;
@@ -271,60 +269,39 @@
     font-family: 'Playfair Display', serif;
     font-size: 28px; color: var(--navy); margin-bottom: 12px;
   }
-  .email-card .email-intro {
+  .email-card p {
     font-size: 15px; color: var(--muted); line-height: 1.7;
-    margin-bottom: 8px; font-weight: 300;
-  }
-  .email-card .email-value {
-    font-size: 14px; color: var(--text); line-height: 1.8;
-    margin-bottom: 28px; font-weight: 400;
-    text-align: left;
-    border-left: 2px solid var(--gold);
-    padding-left: 16px;
+    margin-bottom: 32px; font-weight: 300;
   }
   .email-input {
     width: 100%; padding: 14px 16px;
     border: 1px solid var(--border); border-radius: 2px;
     font-family: 'DM Sans', sans-serif; font-size: 15px;
     color: var(--text); background: var(--off-white);
-    margin-bottom: 8px; outline: none;
+    margin-bottom: 12px; outline: none;
     transition: border-color 0.2s;
   }
   .email-input:focus { border-color: var(--navy); background: var(--white); }
-  .email-input.error { border-color: #c0392b; }
-  .email-error-msg {
-    font-size: 12px; color: #c0392b;
-    margin-bottom: 12px; text-align: left; display: none;
-  }
-  .email-error-msg.visible { display: block; }
   .btn-email-submit {
     width: 100%; background: var(--navy); color: var(--white);
     font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
     border: none; padding: 16px; cursor: pointer; border-radius: 2px;
-    transition: background 0.2s; margin-bottom: 0;
+    transition: background 0.2s; margin-bottom: 16px;
   }
   .btn-email-submit:hover { background: var(--navy-mid); }
-  .btn-email-submit:disabled {
-    opacity: 0.6; cursor: not-allowed;
+  .btn-skip {
+    background: none; border: none; color: var(--muted);
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    cursor: pointer; text-decoration: underline;
+    text-underline-offset: 3px; padding: 4px;
   }
-  .email-submitting-msg {
-    font-size: 13px; color: var(--muted); margin-top: 12px;
-    text-align: center; display: none;
-  }
-  .email-submitting-msg.visible { display: block; }
-  .email-privacy {
-    font-size: 12px; color: var(--muted); margin-top: 14px;
-    text-align: center;
-  }
+  .btn-skip:hover { color: var(--text); }
 
   /* ── RESULTS SCREEN ── */
   #screen-results {
-    display: none;
-    background: var(--off-white);
+    display: none; background: var(--off-white);
     min-height: 100vh; padding-bottom: 80px;
   }
-  #screen-results.active { display: block; }
-
   .results-hero {
     background: var(--navy); padding: 60px 24px 80px;
     text-align: center; position: relative; overflow: hidden;
@@ -354,6 +331,7 @@
     max-width: 760px; margin: 0 auto; padding: 0 24px;
   }
 
+  /* Score cards */
   .score-cards {
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
     margin-top: -36px; margin-bottom: 40px; position: relative; z-index: 10;
@@ -388,6 +366,7 @@
   .soc-card .score-card-value { color: var(--soc); }
   .soc-card .score-card-fill { background: var(--soc); }
 
+  /* Quadrant description */
   .quadrant-desc-card {
     background: var(--white); border: 1px solid var(--border);
     border-radius: 4px; padding: 40px; margin-bottom: 24px;
@@ -400,6 +379,7 @@
     font-size: 16px; line-height: 1.8; color: #374151; font-weight: 300;
   }
 
+  /* Quadrant grid */
   .quadrant-grid-section { margin-bottom: 24px; }
   .quadrant-grid-section h3 {
     font-family: 'Playfair Display', serif;
@@ -416,7 +396,9 @@
     padding: 24px 20px; background: var(--white);
     text-align: center; position: relative;
   }
-  .q-grid-cell.active { background: var(--navy); }
+  .q-grid-cell.active {
+    background: var(--navy);
+  }
   .q-grid-cell.active .qg-name { color: var(--white); }
   .q-grid-cell.active .qg-tag { color: rgba(255,255,255,0.55); }
   .q-grid-cell.active::after {
@@ -432,6 +414,7 @@
   }
   .qg-tag { font-size: 12px; color: var(--muted); }
 
+  /* Subscale breakdown */
   .breakdown-card {
     background: var(--white); border: 1px solid var(--border);
     border-radius: 4px; padding: 32px 40px; margin-bottom: 24px;
@@ -440,14 +423,20 @@
     font-family: 'Playfair Display', serif;
     font-size: 18px; color: var(--navy); margin-bottom: 24px; font-weight: 600;
   }
-  .breakdown-row { margin-bottom: 20px; }
+  .breakdown-row {
+    margin-bottom: 20px;
+  }
   .breakdown-row:last-child { margin-bottom: 0; }
   .breakdown-row-head {
     display: flex; justify-content: space-between;
     align-items: baseline; margin-bottom: 6px;
   }
-  .breakdown-row-name { font-size: 14px; color: var(--text); font-weight: 500; }
-  .breakdown-row-score { font-size: 13px; color: var(--muted); }
+  .breakdown-row-name {
+    font-size: 14px; color: var(--text); font-weight: 500;
+  }
+  .breakdown-row-score {
+    font-size: 13px; color: var(--muted);
+  }
   .breakdown-bar {
     height: 6px; background: var(--border);
     border-radius: 3px; overflow: hidden;
@@ -458,6 +447,7 @@
     width: 0%;
   }
 
+  /* CTA */
   .cta-card {
     background: var(--navy); border-radius: 4px;
     padding: 48px 40px; text-align: center; margin-bottom: 24px;
@@ -468,8 +458,8 @@
   }
   .cta-card p {
     font-size: 15px; color: rgba(255,255,255,0.55);
-    margin-bottom: 28px; font-weight: 300; max-width: 420px;
-    margin-left: auto; margin-right: auto; line-height: 1.7;
+    margin-bottom: 28px; font-weight: 300; max-width: 420px; margin-inline: auto;
+    line-height: 1.7;
   }
   .btn-cta {
     background: var(--gold); color: var(--navy);
@@ -480,7 +470,10 @@
   }
   .btn-cta:hover { background: #d4b060; }
 
-  .retake-row { text-align: center; margin-top: 8px; }
+  /* Retake */
+  .retake-row {
+    text-align: center; margin-top: 8px;
+  }
   .btn-retake {
     background: none; border: none; color: var(--muted);
     font-family: 'DM Sans', sans-serif; font-size: 13px;
@@ -489,10 +482,77 @@
   }
   .btn-retake:hover { color: var(--text); }
 
+  /* ── TRANSITIONS ── */
   .screen-fade { animation: fadeUp 0.5s ease both; }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  /* ── PRACTICE MENU ── */
+  .practice-intro-card {
+    background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px; padding: 32px 40px; margin-bottom: 24px;
+  }
+  .practice-focus-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 10px;
+  }
+  .practice-focus-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy); line-height: 1.5;
+    margin-bottom: 16px; font-weight: 600;
+  }
+  .practice-intro-note {
+    font-size: 14px; color: var(--muted); line-height: 1.7; font-weight: 300;
+  }
+
+  .practice-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 32px 40px; margin-bottom: 16px;
+  }
+  .practice-card.priority-high {
+    border-color: var(--navy);
+    border-left: 4px solid var(--navy);
+  }
+  .practice-card.priority-mid {
+    border-left: 4px solid var(--teal);
+  }
+  .practice-card-head {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; margin-bottom: 24px;
+  }
+  .practice-card-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600; color: var(--navy);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .practice-card-subscale {
+    font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 300;
+  }
+  .priority-badge {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--navy); color: var(--white);
+    padding: 3px 10px; border-radius: 2px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .priority-badge.secondary {
+    background: var(--teal);
+  }
+
+  .activity-list { display: flex; flex-direction: column; gap: 16px; }
+  .activity-item {
+    padding: 16px 20px;
+    background: var(--off-white); border-radius: 3px;
+    border-left: 2px solid var(--border);
+  }
+  .activity-text {
+    font-size: 15px; color: var(--text); line-height: 1.6;
+    font-weight: 500; margin-bottom: 6px;
+  }
+  .activity-why {
+    font-size: 13px; color: var(--muted); line-height: 1.6; font-weight: 300;
   }
 
   @media (max-width: 560px) {
@@ -501,6 +561,7 @@
     .q-grid { grid-template-columns: 1fr; }
     .scale-word { display: none; }
     .breakdown-card, .quadrant-desc-card { padding: 24px; }
+    .practice-card, .practice-intro-card { padding: 24px; }
   }
 </style>
 </head>
@@ -528,7 +589,11 @@
     <span class="q-header-brand">Charisma Quadrant</span>
     <span class="q-header-count" id="header-count">0 / 40</span>
   </div>
-  <div class="q-body" id="q-body"></div>
+
+  <div class="q-body" id="q-body">
+    <!-- Injected by JS -->
+  </div>
+
   <div class="q-footer">
     <div class="q-footer-info">
       <strong id="footer-answered">0</strong> of 40 answered
@@ -538,21 +603,14 @@
 </section>
 
 <!-- ══ EMAIL ══════════════════════════════════════════════════════════════════ -->
-<section id="screen-email">
+<section id="screen-email" style="display:none; min-height:100vh; background:var(--navy); display:none; align-items:center; justify-content:center; padding:60px 24px; flex-direction:column;">
   <div class="email-card screen-fade">
     <div class="email-card-icon">✉</div>
     <h2>Your results are ready</h2>
-    <p class="email-intro">Enter your email below. We'll send you a full breakdown of your quadrant type, plus practical steps to develop from where you are.</p>
-    <div class="email-value">
-      Your quadrant type and scores<br>
-      A personalised development plan<br>
-      Practical actions for this week, this month, and this year
-    </div>
-    <input type="email" class="email-input" id="email-input" placeholder="your@email.com" onkeydown="handleEmailKey(event)">
-    <div class="email-error-msg" id="email-error">Please enter a valid email address.</div>
-    <button class="btn-email-submit" id="btn-email-submit" onclick="submitEmail()">Send me my results</button>
-    <div class="email-submitting-msg" id="email-submitting">Sending — one moment...</div>
-    <p class="email-privacy">No spam. Unsubscribe at any time.</p>
+    <p>Enter your email and we'll send you a full PDF breakdown of your quadrant type — plus practical development tips.</p>
+    <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+    <button class="btn-email-submit" onclick="submitEmail()">Send me my results</button>
+    <button class="btn-skip" onclick="showResults()">Skip — show results now</button>
   </div>
 </section>
 
@@ -591,22 +649,30 @@
       <div class="q-grid">
         <div class="q-grid-cell" id="cell-arrogant">
           <div class="qg-name">Arrogant</div>
-          <div class="qg-tag">High confidence · Lower social skills</div>
+          <div class="qg-tag">High confidence / Lower social skills</div>
         </div>
         <div class="q-grid-cell" id="cell-charismatic">
           <div class="qg-name">Charismatic</div>
-          <div class="qg-tag">High confidence · High social skills</div>
+          <div class="qg-tag">High confidence / High social skills</div>
         </div>
         <div class="q-grid-cell" id="cell-invisible">
           <div class="qg-name">Invisible</div>
-          <div class="qg-tag">Lower confidence · Lower social skills</div>
+          <div class="qg-tag">Lower confidence / Lower social skills</div>
         </div>
         <div class="q-grid-cell" id="cell-influential">
           <div class="qg-name">Influential</div>
-          <div class="qg-tag">Lower confidence · High social skills</div>
+          <div class="qg-tag">Lower confidence / High social skills</div>
         </div>
       </div>
     </div>
+
+    <div class="practice-intro-card">
+      <div class="practice-focus-label">Your focus</div>
+      <p class="practice-focus-text" id="practice-focus-text">—</p>
+      <p class="practice-intro-note">The activities below are ordered by your lowest subscale scores — so what you need most appears first. Pick three that feel slightly uncomfortable. Work on them for a month before adding anything else.</p>
+    </div>
+
+    <div id="practice-menu"></div>
 
     <div class="breakdown-card">
       <h3>Confidence — subscale scores</h3>
@@ -634,19 +700,14 @@
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
 // MAILCHIMP CONFIGURATION
-// Replace these two values before going live:
-//   MAILCHIMP_ACTION — the POST URL from your Mailchimp embedded form code
-//   MAILCHIMP_FIELD  — the email field name from your Mailchimp embedded form code
-//                      (usually "EMAIL" but check your form HTML)
 // ─────────────────────────────────────────────────────────────────────────────
 const MAILCHIMP_ACTION = 'https://YOUR_MAILCHIMP_FORM_ACTION_URL_HERE';
 const MAILCHIMP_FIELD  = 'EMAIL';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// QUESTIONS
+// QUESTIONS — all rewrites applied
 // ─────────────────────────────────────────────────────────────────────────────
 const QUESTIONS = [
-  // Part A — Confidence
   { id:1,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I feel confident in my ability to make important decisions.',                                        rev:false },
   { id:2,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I often hesitate to express my opinions in group settings.',                                        rev:true  },
   { id:3,  part:'a', subscale:'Self-Esteem & Self-Worth',       text:'I take initiative to start new projects or ideas rather than waiting to be asked.',                 rev:false },
@@ -655,7 +716,7 @@ const QUESTIONS = [
   { id:6,  part:'a', subscale:'Resilience & Composure',         text:'I handle criticism without taking it personally.',                                                  rev:false },
   { id:7,  part:'a', subscale:'Resilience & Composure',         text:'I remain positive and motivated even after setbacks.',                                              rev:false },
   { id:8,  part:'a', subscale:'Resilience & Composure',         text:'I struggle to maintain composure when under pressure.',                                             rev:true  },
-  { id:9,  part:'a', subscale:'Resilience & Composure',         text:'I make decisions confidently even when the picture isn\'t complete.',                               rev:false },
+  { id:9,  part:'a', subscale:'Resilience & Composure',         text:'I make decisions confidently even when the picture is not complete.',                               rev:false },
   { id:10, part:'a', subscale:'Resilience & Composure',         text:'I feel anxious when taking on leadership responsibilities.',                                        rev:true  },
   { id:11, part:'a', subscale:'Assertiveness & Accountability', text:'I can assert myself without being aggressive or defensive.',                                        rev:false },
   { id:12, part:'a', subscale:'Assertiveness & Accountability', text:'I feel comfortable taking responsibility for my actions and decisions.',                            rev:false },
@@ -667,13 +728,11 @@ const QUESTIONS = [
   { id:18, part:'a', subscale:'Growth & Adaptability',          text:'I adapt well to new situations and challenges.',                                                    rev:false },
   { id:19, part:'a', subscale:'Growth & Adaptability',          text:'I avoid trying new things because I worry about failing.',                                         rev:true  },
   { id:20, part:'a', subscale:'Growth & Adaptability',          text:'I regularly set and work towards meaningful personal goals.',                                       rev:false },
-
-  // Part B — Social Skills
   { id:21, part:'b', subscale:'Empathy & Listening',            text:'I give others my full attention when they are speaking.',                                           rev:false },
-  { id:22, part:'b', subscale:'Empathy & Listening',            text:'I often interrupt others when they\'re talking.',                                                   rev:true  },
+  { id:22, part:'b', subscale:'Empathy & Listening',            text:'I often interrupt others when they are talking.',                                                   rev:true  },
   { id:23, part:'b', subscale:'Empathy & Listening',            text:'I demonstrate understanding and support when others face difficulties.',                            rev:false },
-  { id:24, part:'b', subscale:'Empathy & Listening',            text:'I find it easy to recognise and respond to others\' emotions.',                                    rev:false },
-  { id:25, part:'b', subscale:'Empathy & Listening',            text:'I tend to dismiss or minimise others\' feelings.',                                                  rev:true  },
+  { id:24, part:'b', subscale:'Empathy & Listening',            text:'I find it easy to recognise and respond to others emotions.',                                      rev:false },
+  { id:25, part:'b', subscale:'Empathy & Listening',            text:'I tend to dismiss or minimise others feelings.',                                                    rev:true  },
   { id:26, part:'b', subscale:'Warmth & Social Courtesy',       text:'I greet people with genuine friendliness and warmth.',                                              rev:false },
   { id:27, part:'b', subscale:'Warmth & Social Courtesy',       text:'I show appreciation and gratitude to others regularly.',                                            rev:false },
   { id:28, part:'b', subscale:'Warmth & Social Courtesy',       text:'I struggle to make people feel welcomed and included.',                                             rev:true  },
@@ -682,8 +741,8 @@ const QUESTIONS = [
   { id:31, part:'b', subscale:'Conversational Skills',          text:'I engage others in meaningful and balanced conversations.',                                         rev:false },
   { id:32, part:'b', subscale:'Conversational Skills',          text:'I tend to dominate conversations, talking more than listening.',                                    rev:true  },
   { id:33, part:'b', subscale:'Conversational Skills',          text:'I adapt my communication style to suit different audiences.',                                      rev:false },
-  { id:34, part:'b', subscale:'Conversational Skills',          text:'I can easily initiate conversations with people I don\'t know well.',                              rev:false },
-  { id:35, part:'b', subscale:'Conversational Skills',          text:'I find it difficult to sustain conversations with people I don\'t know well.',                     rev:true  },
+  { id:34, part:'b', subscale:'Conversational Skills',          text:'I can easily initiate conversations with people I do not know well.',                              rev:false },
+  { id:35, part:'b', subscale:'Conversational Skills',          text:'I find it difficult to sustain conversations with people I do not know well.',                     rev:true  },
   { id:36, part:'b', subscale:'Emotional Control & Humility',   text:'I remain calm and composed in social conflicts.',                                                   rev:false },
   { id:37, part:'b', subscale:'Emotional Control & Humility',   text:'I acknowledge my mistakes and learn from them openly.',                                            rev:false },
   { id:38, part:'b', subscale:'Emotional Control & Humility',   text:'I lose my temper easily when disagreements arise.',                                                rev:true  },
@@ -693,42 +752,167 @@ const QUESTIONS = [
 
 const SCALE_LABELS = ['Strongly\nDisagree','Disagree','Neither','Agree','Strongly\nAgree'];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// QUADRANTS
+// ─────────────────────────────────────────────────────────────────────────────
 const QUADRANTS = {
   charismatic: {
-    name: 'Charismatic',
-    tag: 'High Confidence · High Social Skills',
+    name: 'Charismatic', tag: 'High Confidence · High Social Skills',
     heading: 'You have both the inner game and the outer game.',
     text: 'You carry yourself well and connect easily with others. People feel your presence. The risk is complacency — when things come naturally, the sharpest communicators still keep working at it. The real opportunity is to help others develop what you take for granted.',
-    cell: 'cell-charismatic'
+    focus: 'Staying grounded, protecting your energy, and creating space for others.',
+    cell: 'cell-charismatic', type: 'charismatic'
   },
   arrogant: {
-    name: 'Arrogant',
-    tag: 'High Confidence · Lower Social Skills',
+    name: 'Arrogant', tag: 'High Confidence · Lower Social Skills',
     heading: 'You have conviction and drive — but others may not always feel heard.',
     text: 'Your confidence gets things done. But people around you may experience your certainty as dismissiveness. The fix is usually simpler than it sounds: slow down, ask more questions, and listen to the answers. Your credibility will grow, not shrink.',
-    cell: 'cell-arrogant'
+    focus: 'Listening better, showing more care, and earning the trust your confidence assumes.',
+    cell: 'cell-arrogant', type: 'arrogant'
   },
   influential: {
-    name: 'Influential',
-    tag: 'Lower Confidence · High Social Skills',
+    name: 'Influential', tag: 'Lower Confidence · High Social Skills',
     heading: 'You are perceptive, warm, and well-liked — and you hold yourself back.',
     text: 'People trust you and enjoy your company. What limits you is your own hesitation. You often have the right answer but wait for someone else to say it first. The work is about backing yourself, not changing who you are.',
-    cell: 'cell-influential'
+    focus: 'Backing yourself, stepping forward, and owning your impact.',
+    cell: 'cell-influential', type: 'influential'
   },
   invisible: {
-    name: 'Invisible',
-    tag: 'Lower Confidence · Lower Social Skills',
+    name: 'Invisible', tag: 'Lower Confidence · Lower Social Skills',
     heading: 'This is the most common starting point — and it is not a fixed state.',
-    text: 'Confidence and social skill are both learnable. The question is where you want to start — with how you come across to others, or with how you see yourself. Either path works. The fact that you\'ve completed this assessment means you\'re already moving.',
-    cell: 'cell-invisible'
+    text: 'Confidence and social skill are both learnable. The question is where you want to start — with how you come across to others, or with how you see yourself. Either path works. The fact that you have completed this assessment means you are already moving.',
+    focus: 'Getting seen, getting heard, and trusting your own voice.',
+    cell: 'cell-invisible', type: 'invisible'
   }
 };
 
-const SUBSCALE_COLORS = { a: '#1a3357', b: '#1a7a6e' };
+// ─────────────────────────────────────────────────────────────────────────────
+// PRACTICE MENU — drawn from Chapter 6, ordered by lowest subscale score
+// ─────────────────────────────────────────────────────────────────────────────
+const PRACTICE_MENU = {
+  invisible: [
+    { subscaleKey: 'Assertiveness & Accountability', heading: 'Being Seen at Work', activities: [
+      { text: 'Speak up in the first five minutes of a meeting.', why: 'Early contributions set your presence in the room. After that, speaking gets easier.' },
+      { text: 'Volunteer for one visible project this month.', why: 'Taking on something with an audience builds both track record and confidence at the same time.' },
+      { text: 'Share one achievement with your manager or team without waiting to be asked.', why: 'Visibility is not boasting. It is making sure your work is connected to your name.' },
+      { text: 'Ask a thoughtful question in a group setting once a week.', why: 'Questions show you are engaged and get you heard without requiring a long speech.' },
+      { text: 'Offer to present the team\'s work, even for five minutes.', why: 'Every presentation, however small, is a confidence deposit. The next one feels less daunting.' },
+    ]},
+    { subscaleKey: 'Growth & Adaptability', heading: 'Building Confidence Through Track Record', activities: [
+      { text: 'Keep a running record of your wins, however small.', why: 'Confidence is built on evidence. A written record is harder to dismiss than a feeling.' },
+      { text: 'Set one achievable goal each week and tick it off.', why: 'Small, consistent achievements rewire how you see yourself over time.' },
+      { text: 'Reflect on one thing that went well at the end of each day.', why: 'Most people replay what went wrong. This habit deliberately builds a more accurate picture.' },
+      { text: 'Identify one skill gap and make a plan to close it.', why: 'Competence and confidence are linked. Knowing you are actively improving changes how you carry yourself.' },
+      { text: 'Celebrate a milestone properly, not just mentally.', why: 'Recognising progress reinforces the belief that progress is possible. Do not skip this step.' },
+    ]},
+    { subscaleKey: 'Resilience & Composure', heading: 'Managing Nerves and Anxiety', activities: [
+      { text: 'Prepare more than feels necessary before any high-stakes interaction.', why: 'Preparation directly reduces anxiety. Most nerves are about the unknown. Remove the unknown where you can.' },
+      { text: 'Use slow, deliberate breathing for two minutes before a difficult conversation.', why: 'This is physiological, not motivational. It genuinely reduces the stress response in your body.' },
+      { text: 'Visualise the conversation going well, in specific detail.', why: 'Mental rehearsal primes the brain for the real thing. Athletes use it. It works.' },
+      { text: 'Do something physical before a high-pressure event.', why: 'Exercise changes your body chemistry. Even a ten-minute walk shifts your state.' },
+      { text: 'Talk to someone you trust about what is making you anxious.', why: 'Saying it out loud reduces its power. It also gives you the chance to hear how it sounds from the outside.' },
+    ]},
+    { subscaleKey: 'Self-Esteem & Self-Worth', heading: 'Building Self-Esteem and Self-Worth', activities: [
+      { text: 'List your five strongest qualities. Update the list every month.', why: 'Self-worth is not arrogance. Knowing what you genuinely do well is the foundation of projecting it.' },
+      { text: 'Accept a compliment without deflecting it.', why: 'Deflecting compliments signals low worth to others. A simple "thank you" is enough.' },
+      { text: 'Know your core values and refer to them when making decisions.', why: 'People who act from clear values are easier to trust. That trust is the basis of influence.' },
+      { text: 'Say no to one request this week that takes you away from what matters.', why: 'Boundaries communicate self-respect. People who cannot say no are often liked but rarely respected.' },
+      { text: 'Speak to yourself the way you would speak to a colleague you respect.', why: 'Self-talk shapes your internal confidence. This is about basic fairness to yourself.' },
+    ]},
+  ],
+  influential: [
+    { subscaleKey: 'Assertiveness & Accountability', heading: 'Backing Yourself', activities: [
+      { text: 'Put yourself forward for one opportunity before you feel ready.', why: 'Readiness is largely a feeling, not a fact. The experience of doing something is what creates confidence.' },
+      { text: 'State your opinion clearly in the next meeting where you have a view.', why: 'Influential people are known to have positions. Being agreeable is likeable. Having a clear point of view is influential.' },
+      { text: 'Ask for a piece of work that stretches your current ability.', why: 'Track record is built by doing things that are slightly beyond your comfort zone.' },
+      { text: 'Find a mentor who will tell you the truth about what you are capable of.', why: 'Imposter syndrome shrinks in the face of honest external assessment from someone who knows what good looks like.' },
+      { text: 'Ask for feedback on a specific piece of work, not general feedback.', why: 'Specific feedback gives you something concrete to act on. It also tells others you are serious about improving.' },
+    ]},
+    { subscaleKey: 'Conversational Skills', heading: 'Building Conversational Confidence', activities: [
+      { text: 'Ask open-ended questions that invite the other person to go deeper.', why: 'Good questions do more social work than good answers. They make people feel interesting and make you memorable.' },
+      { text: 'Share a personal story or experience in a conversation this week.', why: 'People connect to people, not to positions or competencies. Sharing something real builds real rapport.' },
+      { text: 'Use the other person\'s name once or twice in a conversation.', why: 'A small thing with a disproportionate effect. It signals attention and respect.' },
+      { text: 'Stay in a conversation slightly longer than feels comfortable.', why: 'Many influential connections are made in the moment just after you would normally have moved on.' },
+      { text: 'Find common ground with someone you usually struggle to connect with.', why: 'Rapport across difference is a real skill. Shared experience, however small, creates connection.' },
+    ]},
+    { subscaleKey: 'Self-Esteem & Self-Worth', heading: 'Meeting New People and Building Visibility', activities: [
+      { text: 'Research someone before you meet them and reference something specific.', why: 'This signals respect and genuine interest. It also makes the conversation immediately more substantive.' },
+      { text: 'Introduce yourself with your name and one clear sentence about what you do.', why: 'A crisp introduction is memorable. Most people stumble here. A prepared, natural version stands out.' },
+      { text: 'Follow up within 24 hours after meeting someone who matters.', why: 'Most people intend to follow up. The ones who do are automatically more memorable.' },
+      { text: 'Post one thoughtful piece of content on LinkedIn each month.', why: 'Visibility to people you have never met builds professional reputation over time.' },
+      { text: 'Turn your camera on in every online meeting by default.', why: 'A face creates connection. A name on a black square does not.' },
+    ]},
+    { subscaleKey: 'Resilience & Composure', heading: 'Building Internal Belief', activities: [
+      { text: 'Keep a success journal and review it weekly to internalise your impact.', why: 'Confidence is built on evidence. A written record is harder to dismiss than a feeling.' },
+      { text: 'Stop minimising — notice and correct self-deprecating language when it appears.', why: 'The habit of deflecting erodes how others perceive you. It is worth breaking deliberately.' },
+      { text: 'Set one achievable goal each week and tick it off.', why: 'Small, consistent achievements rewire how you see yourself over time.' },
+      { text: 'Speak to yourself the way you would speak to a colleague you respect.', why: 'Self-talk shapes your internal confidence. This is about basic fairness to yourself.' },
+      { text: 'Write down three things you are genuinely grateful for each morning.', why: 'Gratitude shifts perspective in a way that affects how you come across. Hard to explain, reliably true.' },
+    ]},
+  ],
+  arrogant: [
+    { subscaleKey: 'Empathy & Listening', heading: 'Building Empathy', activities: [
+      { text: 'Before giving your view in a conversation, ask one genuine question first.', why: 'This one habit changes the dynamic of most interactions. It signals that you are interested, not just asserting.' },
+      { text: 'When someone comes to you with a problem, acknowledge how they feel before offering a solution.', why: 'Most people want to feel heard before they want to be helped. Skipping this step is why good advice sometimes lands badly.' },
+      { text: 'Observe body language during your next difficult conversation.', why: 'Verbal content is only part of what is being communicated. The physical signals often tell a different story.' },
+      { text: 'Pause before responding when you feel certain you are right.', why: 'The pause is the work. It creates space for you to hear what was actually said rather than what you expected.' },
+      { text: 'Say "I understand" or "that makes sense" and mean it before you move on.', why: 'Validation is not agreement. It is acknowledgement. People need it before they can hear what comes next.' },
+    ]},
+    { subscaleKey: 'Emotional Control & Humility', heading: 'Building Humility', activities: [
+      { text: 'Acknowledge a mistake to the person it affected, without qualification.', why: 'Owning mistakes without a "but" is rare and memorable. It builds trust faster than competence alone.' },
+      { text: 'Ask someone junior to you for their view on something you are working on.', why: 'Genuine curiosity about others perspectives, regardless of seniority, is one of the clearest signals of a strong leader.' },
+      { text: 'Share credit publicly for a success your team contributed to.', why: 'People who share credit get more of it in the long run. People who hoard it get less.' },
+      { text: 'Sit with feedback you disagree with before responding.', why: 'The instinct to rebut immediately is usually about protecting the ego. Sitting with it often reveals something useful.' },
+      { text: 'Practise saying "I don\'t know" when you genuinely do not.', why: 'Honesty about limits builds credibility. It also gives others permission to be honest with you.' },
+    ]},
+    { subscaleKey: 'Warmth & Social Courtesy', heading: 'Listening Skills', activities: [
+      { text: 'Use the 70/30 rule in your next three one-to-ones — listen 70%, talk 30%.', why: 'Count if you need to at first. The discipline quickly becomes a habit.' },
+      { text: 'Put your phone face-down in every conversation this week.', why: 'The phone being visible, even face-down, reduces the quality of conversation. Remove the distraction entirely.' },
+      { text: 'Summarise what you have heard before you respond.', why: 'This confirms understanding, shows you were listening, and often opens the conversation further.' },
+      { text: 'Count to three before responding in any conversation where you feel a strong reaction.', why: 'The pause signals composure. It also often changes what you decide to say.' },
+      { text: 'Ask a clarifying question when something is not clear rather than assuming.', why: 'Assumptions are the most common source of unnecessary conflict. A question costs nothing.' },
+    ]},
+    { subscaleKey: 'Conversational Skills', heading: 'Controlling Your Ego', activities: [
+      { text: 'When you catch yourself comparing yourself to someone else, redirect to your own progress.', why: 'Comparison is the enemy of presence. People absorbed in their own journey are more interesting to be around.' },
+      { text: 'Ask for feedback from someone who is likely to challenge you, not comfort you.', why: 'Useful feedback is uncomfortable. Seek it deliberately rather than waiting for it to arrive.' },
+      { text: 'Find one thing to genuinely celebrate in a colleague\'s success this week.', why: 'Generosity of spirit is visible. Its absence is equally visible.' },
+      { text: 'Give feedback on a specific behaviour, not a character trait.', why: '"You interrupted three times in that meeting" is actionable. "You are dismissive" is not.' },
+      { text: 'Give difficult feedback in private, never in front of others.', why: 'Public criticism damages trust immediately. It rarely improves performance and often destroys motivation.' },
+    ]},
+  ],
+  charismatic: [
+    { subscaleKey: 'Resilience & Composure', heading: 'Keeping a Positive Mindset', activities: [
+      { text: 'Start each day by writing down three things you are genuinely grateful for.', why: 'Gratitude is a discipline that keeps perspective intact when things are hard.' },
+      { text: 'Spend time each week with people who energise rather than drain you.', why: 'Charisma requires energy. Protecting your energy is not selfishness. It is sustainability.' },
+      { text: 'Take a proper break at least once during each working day.', why: 'Sustained presence is not the same as unbroken presence. Short, genuine breaks restore the quality of attention.' },
+      { text: 'Notice when your energy drops and name the cause.', why: 'Self-awareness about energy states lets you manage them. Most people do not notice until they are already running on empty.' },
+      { text: 'When something goes wrong, ask what you can control rather than what went wrong.', why: 'A focus on agency rather than blame keeps you productive. It is also more pleasant to be around.' },
+    ]},
+    { subscaleKey: 'Emotional Control & Humility', heading: 'Finding Perspective in Conflict', activities: [
+      { text: 'Before a difficult conversation, write down the outcome you want and the outcome the other person probably wants.', why: 'Understanding where interests overlap gives you a place to start.' },
+      { text: 'Take a breath and a pause before responding to anything that provokes a strong reaction.', why: 'Your first reaction is rarely your best one. The pause is where judgement lives.' },
+      { text: 'After a conflict, ask yourself what you could have done differently — before assessing the other person.', why: 'This is the hardest and most useful question in any difficult situation.' },
+      { text: 'Seek input from someone with a different perspective before making a significant decision.', why: 'The quality of decisions improves with diverse input. The habit also signals genuine openness to others.' },
+      { text: 'When someone is difficult, ask what might be driving their behaviour rather than just reacting to it.', why: 'Curiosity about difficult people is more productive than judgement.' },
+    ]},
+    { subscaleKey: 'Warmth & Social Courtesy', heading: 'Showing Kindness — The Small Stuff', activities: [
+      { text: 'Write a short, specific thank-you message to someone who helped you this week.', why: 'Specific gratitude is rare and remembered. It lands differently from a generic "thanks for everything."' },
+      { text: 'When someone seems stressed or distracted, ask if they are alright.', why: 'Noticing and naming is one of the most underused social skills. Most people are waiting for someone to ask.' },
+      { text: 'Offer to help before being asked, when you can see someone is struggling.', why: 'Proactive support builds trust and goodwill faster than reactive support.' },
+      { text: 'Make a point of including someone who has been quiet in a group conversation.', why: 'Bringing people in rather than letting them stay invisible is one of the most visible signs of genuine charisma.' },
+      { text: 'Practise patience — give the other person time to finish before you speak.', why: 'Patience is a form of respect. Rushed conversations leave people feeling like they were a task, not a person.' },
+    ]},
+    { subscaleKey: 'Conversational Skills', heading: 'Deepening Social Skills', activities: [
+      { text: 'Learn one fact about everyone in your team that is not work-related.', why: 'Knowing people as people, not just colleagues, changes the quality of every interaction.' },
+      { text: 'Match your energy to the room rather than bringing the same level into every situation.', why: 'Reading the energy of a group and adapting to it is one of the defining skills of a highly charismatic person.' },
+      { text: 'Ask someone to tell you more about something they are clearly excited about.', why: '"Tell me more" is one of the most powerful phrases in any relationship. It signals real interest and produces real conversation.' },
+      { text: 'Be specific in your praise. Name the thing, not just the feeling.', why: '"The way you handled that client question showed real judgement" is three times more valuable than "well done."' },
+      { text: 'Identify the one habit that is most undermining your charisma right now and focus on it for 30 days.', why: 'One focused effort usually produces more change than five partial ones.' },
+    ]},
+  ]
+};
 
-// ─────────────────────────────────────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────────────────────────────────────
+const SUBSCALE_COLORS = { a: '#1a3357', b: '#1a7a6e' };
 let answers = {};
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -736,52 +920,28 @@ let answers = {};
 // ─────────────────────────────────────────────────────────────────────────────
 function renderQuestions() {
   const body = document.getElementById('q-body');
-  let html = '';
-  let lastSubscale = '';
-  let lastPart = '';
-
+  let html = '', lastSubscale = '', lastPart = '';
   QUESTIONS.forEach(q => {
     if (q.part !== lastPart) {
       if (lastPart !== '') {
-        html += `<div class="section-divider">
-          <div class="section-divider-line"></div>
-          <div class="section-divider-text">Part B — Social Skills</div>
-          <div class="section-divider-line"></div>
-        </div>`;
+        html += `<div class="section-divider"><div class="section-divider-line"></div><div class="section-divider-text">Part B — Social Skills</div><div class="section-divider-line"></div></div>`;
       }
-      lastPart = q.part;
-      lastSubscale = '';
+      lastPart = q.part; lastSubscale = '';
     }
-
     if (q.subscale !== lastSubscale) {
-      const partClass = q.part === 'a' ? 'part-a' : 'part-b';
-      const partLabel = q.part === 'a' ? 'Part A — Confidence' : 'Part B — Social Skills';
-      const show = (lastSubscale === '' && q.part === 'a')
-        ? `<div class="part-label ${partClass}"><div class="part-label-bar"></div><div class="part-label-text">${partLabel}</div></div>`
-        : '';
+      const pc = q.part === 'a' ? 'part-a' : 'part-b';
+      const pl = q.part === 'a' ? 'Part A — Confidence' : 'Part B — Social Skills';
+      const show = (lastSubscale === '' && q.part === 'a') ? `<div class="part-label ${pc}"><div class="part-label-bar"></div><div class="part-label-text">${pl}</div></div>` : '';
       html += `${show}<div class="subscale-heading">${q.subscale}</div>`;
       lastSubscale = q.subscale;
     }
-
-    const scaleOptions = [1,2,3,4,5].map(n => {
-      const words = SCALE_LABELS[n-1].replace('\n','<br>');
-      return `
-        <input type="radio" class="scale-option" name="q${q.id}" id="q${q.id}n${n}" value="${n}" onchange="recordAnswer(${q.id}, ${n})">
-        <label class="scale-label" for="q${q.id}n${n}">
-          <span class="scale-num">${n}</span>
-          <span class="scale-word">${words}</span>
-        </label>`;
+    const opts = [1,2,3,4,5].map(n => {
+      const w = SCALE_LABELS[n-1].replace('\n','<br>');
+      return `<input type="radio" class="scale-option" name="q${q.id}" id="q${q.id}n${n}" value="${n}" onchange="recordAnswer(${q.id},${n})"><label class="scale-label" for="q${q.id}n${n}"><span class="scale-num">${n}</span><span class="scale-word">${w}</span></label>`;
     }).join('');
-
-    const partClass = q.part === 'b' ? 'part-b' : '';
-    html += `
-      <div class="question-card ${partClass}" id="card-${q.id}">
-        <div class="q-number">Question ${q.id}</div>
-        <div class="q-text">${q.text}</div>
-        <div class="scale-row">${scaleOptions}</div>
-      </div>`;
+    const pc2 = q.part === 'b' ? 'part-b' : '';
+    html += `<div class="question-card ${pc2}" id="card-${q.id}"><div class="q-number">Question ${q.id}</div><div class="q-text">${q.text}</div><div class="scale-row">${opts}</div></div>`;
   });
-
   body.innerHTML = html;
 }
 
@@ -791,207 +951,145 @@ function renderQuestions() {
 function startAssessment() {
   document.getElementById('screen-intro').style.display = 'none';
   document.getElementById('screen-questions').style.display = 'block';
-  renderQuestions();
-  updateProgress();
-  window.scrollTo(0, 0);
+  renderQuestions(); updateProgress(); window.scrollTo(0,0);
 }
-
 function recordAnswer(qId, val) {
   answers[qId] = val;
   document.getElementById(`card-${qId}`).classList.add('answered');
   updateProgress();
 }
-
 function updateProgress() {
   const count = Object.keys(answers).length;
-  const pct = (count / 40) * 100;
-  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-fill').style.width = (count/40*100) + '%';
   document.getElementById('header-count').textContent = count + ' / 40';
   document.getElementById('footer-answered').textContent = count;
   const btn = document.getElementById('btn-submit');
-  if (count === 40) btn.classList.add('ready');
-  else btn.classList.remove('ready');
+  if (count === 40) btn.classList.add('ready'); else btn.classList.remove('ready');
 }
-
 function submitAssessment() {
   if (Object.keys(answers).length < 40) return;
   document.getElementById('screen-questions').style.display = 'none';
   document.getElementById('screen-email').classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // EMAIL / MAILCHIMP
 // ─────────────────────────────────────────────────────────────────────────────
-function handleEmailKey(e) {
-  if (e.key === 'Enter') submitEmail();
-}
-
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
+function handleEmailKey(e) { if (e.key === 'Enter') submitEmail(); }
+function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function submitEmail() {
-  const emailInput = document.getElementById('email-input');
-  const errorMsg   = document.getElementById('email-error');
-  const submitBtn  = document.getElementById('btn-email-submit');
-  const loadingMsg = document.getElementById('email-submitting');
-  const email      = emailInput.value.trim();
-
-  // Validate
-  if (!isValidEmail(email)) {
-    emailInput.classList.add('error');
-    errorMsg.classList.add('visible');
-    emailInput.focus();
-    return;
-  }
-  emailInput.classList.remove('error');
-  errorMsg.classList.remove('visible');
-
-  // Disable button and show loading
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-  loadingMsg.classList.add('visible');
-
-  // Submit to Mailchimp via JSONP (avoids CORS)
-  // Mailchimp embedded forms use a /post-json endpoint with callback=?
-  const url = MAILCHIMP_ACTION.replace('/post?', '/post-json?') + `&${MAILCHIMP_FIELD}=${encodeURIComponent(email)}&c=mailchimpCallback`;
-
-  const script = document.createElement('script');
-  window.mailchimpCallback = function(data) {
-    script.remove();
-    delete window.mailchimpCallback;
-    // Whether success or already-subscribed, proceed to results
-    showResults();
-  };
-
-  script.src = url;
-  script.onerror = function() {
-    // On network error, still show results — don't block the user
-    script.remove();
-    delete window.mailchimpCallback;
-    showResults();
-  };
-
-  document.head.appendChild(script);
-
-  // Fallback: if Mailchimp doesn't respond in 4 seconds, proceed anyway
-  setTimeout(function() {
-    if (window.mailchimpCallback) {
-      delete window.mailchimpCallback;
-      showResults();
-    }
-  }, 4000);
+  const input = document.getElementById('email-input');
+  const err   = document.getElementById('email-error');
+  const btn   = document.getElementById('btn-email-submit');
+  const msg   = document.getElementById('email-submitting');
+  const email = input.value.trim();
+  if (!isValidEmail(email)) { input.classList.add('error'); err.classList.add('visible'); input.focus(); return; }
+  input.classList.remove('error'); err.classList.remove('visible');
+  btn.disabled = true; btn.textContent = 'Sending...'; msg.classList.add('visible');
+  const url = MAILCHIMP_ACTION.replace('/post?', '/post-json?') + `&${MAILCHIMP_FIELD}=${encodeURIComponent(email)}&c=mcCb`;
+  const s = document.createElement('script');
+  window.mcCb = function() { s.remove(); delete window.mcCb; showResults(); };
+  s.src = url; s.onerror = function() { s.remove(); delete window.mcCb; showResults(); };
+  document.head.appendChild(s);
+  setTimeout(function() { if (window.mcCb) { delete window.mcCb; showResults(); } }, 4000);
 }
-
 function showResults() {
   document.getElementById('screen-email').classList.remove('active');
   document.getElementById('screen-results').classList.add('active');
-  window.scrollTo(0, 0);
-  calculateAndRender();
+  window.scrollTo(0,0); calculateAndRender();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCORING
+// SCORING & DYNAMIC PRACTICE MENU
 // ─────────────────────────────────────────────────────────────────────────────
-function scoreItem(qId, raw) {
-  const q = QUESTIONS.find(x => x.id === qId);
-  return q.rev ? (6 - raw) : raw;
-}
+function scoreItem(qId, raw) { const q = QUESTIONS.find(x => x.id === qId); return q.rev ? (6-raw) : raw; }
 
 function calculateAndRender() {
   let confTotal = 0, socTotal = 0;
   const subscaleScores = {};
-
   QUESTIONS.forEach(q => {
-    const raw   = answers[q.id] || 3;
+    const raw = answers[q.id] || 3;
     const score = scoreItem(q.id, raw);
-    if (q.part === 'a') confTotal += score;
-    else socTotal += score;
-
-    if (!subscaleScores[q.subscale]) {
-      subscaleScores[q.subscale] = { total: 0, count: 0, part: q.part };
-    }
+    if (q.part === 'a') confTotal += score; else socTotal += score;
+    if (!subscaleScores[q.subscale]) subscaleScores[q.subscale] = { total:0, count:0, part:q.part };
     subscaleScores[q.subscale].total += score;
     subscaleScores[q.subscale].count++;
   });
 
-  const confScore = confTotal;
-  const socScore  = socTotal;
-
-  // Quadrant threshold = 60
+  const confScore = confTotal, socScore = socTotal;
   let quadrant;
   if      (confScore > 60 && socScore > 60)  quadrant = QUADRANTS.charismatic;
   else if (confScore > 60 && socScore <= 60) quadrant = QUADRANTS.arrogant;
   else if (confScore <= 60 && socScore > 60) quadrant = QUADRANTS.influential;
   else                                        quadrant = QUADRANTS.invisible;
 
-  // Hero
   document.getElementById('result-name').textContent = quadrant.name;
   document.getElementById('result-tag').textContent  = quadrant.tag;
-
-  // Scores
-  document.getElementById('conf-score').textContent = confScore;
-  document.getElementById('soc-score').textContent  = socScore;
-
-  // Animate score bars
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      document.getElementById('conf-bar').style.width = confScore + '%';
-      document.getElementById('soc-bar').style.width  = socScore  + '%';
-    }, 100);
-  });
-
-  // Description
+  document.getElementById('conf-score').textContent  = confScore;
+  document.getElementById('soc-score').textContent   = socScore;
   document.getElementById('desc-heading').textContent = quadrant.heading;
   document.getElementById('desc-text').textContent    = quadrant.text;
+  document.getElementById('practice-focus-text').textContent = quadrant.focus;
 
-  // Quadrant grid
+  requestAnimationFrame(() => { setTimeout(() => {
+    document.getElementById('conf-bar').style.width = confScore + '%';
+    document.getElementById('soc-bar').style.width  = socScore  + '%';
+  }, 100); });
+
   ['cell-charismatic','cell-arrogant','cell-influential','cell-invisible'].forEach(id => {
     document.getElementById(id).classList.remove('active');
   });
   document.getElementById(quadrant.cell).classList.add('active');
 
+  // Subscale percentages
+  const subscalePct = {};
+  Object.entries(subscaleScores).forEach(([name, data]) => {
+    subscalePct[name] = Math.round((data.total / (data.count * 5)) * 100);
+  });
+
+  // Sort practice categories by lowest subscale score (highest need first)
+  const cats = [...PRACTICE_MENU[quadrant.type]].sort((a, b) => {
+    const pA = subscalePct[a.subscaleKey] !== undefined ? subscalePct[a.subscaleKey] : 100;
+    const pB = subscalePct[b.subscaleKey] !== undefined ? subscalePct[b.subscaleKey] : 100;
+    return pA - pB;
+  });
+
+  document.getElementById('practice-menu').innerHTML = cats.map((cat, idx) => {
+    const pct      = subscalePct[cat.subscaleKey];
+    const priClass = idx === 0 ? ' priority-high' : idx === 1 ? ' priority-mid' : '';
+    const badge    = idx === 0 ? '<span class="priority-badge">Start here</span>' : idx === 1 ? '<span class="priority-badge secondary">Next focus</span>' : '';
+    const acts     = cat.activities.map(a => `<div class="activity-item"><div class="activity-text">${a.text}</div><div class="activity-why">${a.why}</div></div>`).join('');
+    return `<div class="practice-card${priClass}">
+      <div class="practice-card-head"><div>
+        <div class="practice-card-heading">${cat.heading} ${badge}</div>
+        <div class="practice-card-subscale">Based on your ${cat.subscaleKey} score: ${pct !== undefined ? pct + '%' : '—'}</div>
+      </div></div>
+      <div class="activity-list">${acts}</div>
+    </div>`;
+  }).join('');
+
   // Subscale breakdowns
   const confSubs = Object.entries(subscaleScores).filter(([,v]) => v.part === 'a');
   const socSubs  = Object.entries(subscaleScores).filter(([,v]) => v.part === 'b');
-
-  function renderBreakdown(containerId, subs, color) {
-    const el = document.getElementById(containerId);
-    el.innerHTML = subs.map(([name, data]) => {
+  function renderBreakdown(id, subs, color) {
+    document.getElementById(id).innerHTML = subs.map(([name, data]) => {
       const pct = Math.round((data.total / (data.count * 5)) * 100);
-      return `<div class="breakdown-row">
-        <div class="breakdown-row-head">
-          <span class="breakdown-row-name">${name}</span>
-          <span class="breakdown-row-score">${pct}%</span>
-        </div>
-        <div class="breakdown-bar">
-          <div class="breakdown-fill" style="background:${color}" data-pct="${pct}"></div>
-        </div>
-      </div>`;
+      return `<div class="breakdown-row"><div class="breakdown-row-head"><span class="breakdown-row-name">${name}</span><span class="breakdown-row-score">${pct}%</span></div><div class="breakdown-bar"><div class="breakdown-fill" style="background:${color}" data-pct="${pct}"></div></div></div>`;
     }).join('');
-
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        el.querySelectorAll('.breakdown-fill').forEach(bar => {
-          bar.style.width = bar.dataset.pct + '%';
-        });
-      }, 200);
-    });
+    requestAnimationFrame(() => { setTimeout(() => {
+      document.getElementById(id).querySelectorAll('.breakdown-fill').forEach(b => { b.style.width = b.dataset.pct + '%'; });
+    }, 200); });
   }
-
   renderBreakdown('conf-breakdown', confSubs, SUBSCALE_COLORS.a);
   renderBreakdown('soc-breakdown',  socSubs,  SUBSCALE_COLORS.b);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RETAKE
-// ─────────────────────────────────────────────────────────────────────────────
 function retake() {
   answers = {};
   document.getElementById('screen-results').classList.remove('active');
   document.getElementById('screen-intro').style.display = 'flex';
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 </script>
 </body>
