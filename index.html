@@ -111,7 +111,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
 .q-grid-cell.active .qg-name{color:var(--white)}
 .q-grid-cell.active .qg-tag{color:rgba(255,255,255,0.55)}
 .q-grid-cell.active::after{content:'You';position:absolute;top:8px;right:10px;font-size:10px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;font-weight:500}
-.qg-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.qg-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
 .qg-tag{font-size:12px;color:var(--muted)}
 .practice-section{margin-bottom:24px}
 .practice-header{background:var(--navy);border-radius:4px;padding:32px 40px;margin-bottom:16px}
@@ -183,7 +183,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
   .quadrant-desc-card{break-inside:avoid}
   .results-hero::before{display:none}
 }
-@media(max-width:560px){.email-card{padding:40px 28px}.score-cards{grid-template-columns:1fr}.q-grid{grid-template-columns:1fr}.scale-word{display:none}.breakdown-card,.quadrant-desc-card,.practice-header{padding:24px}.practice-item{padding:16px}}
+@media(max-width:560px){.email-card{padding:40px 28px}.score-cards{grid-template-columns:1fr}.q-grid{grid-template-columns:1fr}.breakdown-card,.quadrant-desc-card,.practice-header{padding:24px}.practice-item{padding:16px}.scale-row{grid-template-columns:1fr;gap:6px}.scale-label{flex-direction:row;justify-content:flex-start;padding:12px 16px;gap:14px;text-align:left}.scale-num{font-size:16px;min-width:20px;text-align:center}.scale-word{font-size:13px;color:var(--muted)}}
 </style>
 </head>
 <body>
@@ -191,15 +191,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
 <section id="screen-intro" class="screen active">
-  <div class="intro-badge">Open-Source Charisma 4.0</div>
+  <div class="intro-badge">The Charisma Code &mdash; What Type Are You?</div>
   <h1 class="intro-title">The Charisma<br><span>Quadrant</span> Assessment</h1>
-  <p class="intro-subtitle">Forty questions. Two dimensions. One clear picture of how you come across — and where to focus next.</p>
+  <p class="intro-subtitle">Charisma isn't a gift. It's a skill. Forty questions to show you where you are right now — and exactly where to focus next.</p>
   <div class="intro-meta">
     <div class="intro-meta-item"><strong>40</strong><span>Questions</span></div>
     <div class="intro-meta-item"><strong>10'</strong><span>Average time</span></div>
     <div class="intro-meta-item"><strong>4</strong><span>Quadrant types</span></div>
   </div>
-  <button class="btn-primary" onclick="startAssessment()">Begin the Assessment</button>
+  <button class="btn-primary" onclick="startAssessment()">Find Your Type</button>
   <p class="intro-note">No right or wrong answers — rate how you typically behave, not how you'd like to.</p>
 </section>
 
@@ -231,7 +231,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
 
 <section id="screen-results" class="screen">
   <div class="results-hero">
-    <p class="results-hero-label">Your Quadrant Type</p>
+    <p class="results-hero-label">Your Charisma Quadrant Type</p>
     <h2 class="results-quadrant-name" id="result-name"></h2>
     <p class="results-quadrant-tag" id="result-tag"></p>
   </div>
@@ -255,12 +255,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
       <p id="desc-text"></p>
     </div>
     <div class="quadrant-grid-section">
-      <h3>Where you sit in the quadrant</h3>
+      <h3>Where you sit right now</h3>
       <div class="q-grid">
-        <div class="q-grid-cell" id="cell-arrogant"><div class="qg-name">Arrogant</div><div class="qg-tag">High confidence &middot; Lower social skills</div></div>
-        <div class="q-grid-cell" id="cell-charismatic"><div class="qg-name">Charismatic</div><div class="qg-tag">High confidence &middot; High social skills</div></div>
-        <div class="q-grid-cell" id="cell-invisible"><div class="qg-name">Invisible</div><div class="qg-tag">Lower confidence &middot; Lower social skills</div></div>
-        <div class="q-grid-cell" id="cell-influential"><div class="qg-name">Influential</div><div class="qg-tag">Lower confidence &middot; High social skills</div></div>
+        <div class="q-grid-cell" id="cell-arrogant"><div class="qg-name">The Occasionally Overconfident</div><div class="qg-tag">High confidence &middot; Lower social skills</div></div>
+        <div class="q-grid-cell" id="cell-charismatic"><div class="qg-name">The Courteous Charismatic</div><div class="qg-tag">High confidence &middot; High social skills</div></div>
+        <div class="q-grid-cell" id="cell-invisible"><div class="qg-name">The Unfortunately Invisible</div><div class="qg-tag">Lower confidence &middot; Lower social skills</div></div>
+        <div class="q-grid-cell" id="cell-influential"><div class="qg-name">The Unknowingly Influential</div><div class="qg-tag">Lower confidence &middot; High social skills</div></div>
       </div>
     </div>
     <div id="practice-menu"></div>
@@ -276,7 +276,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
     </div>
     <div class="cta-card">
       <h3>Read the book</h3>
-      <p>Open-Source Charisma explores how all four quadrant types develop &mdash; and what changes when you move.</p>
+      <p>The Charisma Code explores all four quadrant types in depth &mdash; and what it takes to move between them.</p>
       <a class="btn-cta" href="https://www.themessagebusiness.com" target="_blank">Find out more</a>
     </div>
     <div class="retake-row"><button class="btn-retake" onclick="retake()">Retake the assessment</button></div>
@@ -339,10 +339,10 @@ const QUESTIONS = [
 const SCALE = ['Strongly Disagree','Disagree','Neither','Agree','Strongly Agree'];
 
 const Q = {
-  charismatic:{name:'Charismatic',tag:'High Confidence \u00b7 High Social Skills',heading:'You have both the inner game and the outer game.',text:"You carry yourself well and connect easily with others. People feel your presence. The risk is complacency \u2014 when things come naturally, the sharpest communicators still keep working at it. The real opportunity is to help others develop what you take for granted.",cell:'cell-charismatic',intro:"You have the core skills. This section is about maintaining them under pressure, deepening them, and making sure your presence lifts others rather than inadvertently overwhelming them.",key:'charismatic'},
-  arrogant:   {name:'Arrogant',   tag:'High Confidence \u00b7 Lower Social Skills',heading:'You have conviction and drive \u2014 but others may not always feel heard.',text:"Your confidence gets things done. But people around you may experience your certainty as dismissiveness. The fix is usually simpler than it sounds: slow down, ask more questions, and listen to the answers. Your credibility will grow, not shrink.",cell:'cell-arrogant',intro:"Your capability is not in question. This is about making sure that capability lands well \u2014 that people want to follow you rather than just comply with you.",key:'arrogant'},
-  influential:{name:'Influential', tag:'Lower Confidence \u00b7 High Social Skills',heading:'You are perceptive, warm, and well-liked \u2014 and you hold yourself back.',text:"People trust you and enjoy your company. What limits you is your own hesitation. You often have the right answer but wait for someone else to say it first. The work is about backing yourself, not changing who you are.",cell:'cell-influential',intro:"You connect well. You are probably better at this than you realise. These activities are about converting that social ability into visible, acknowledged influence.",key:'influential'},
-  invisible:  {name:'Invisible',  tag:'Lower Confidence \u00b7 Lower Social Skills',heading:'This is the most common starting point \u2014 and it is not a fixed state.',text:"Confidence and social skill are both learnable. The question is where you want to start \u2014 with how you come across to others, or with how you see yourself. Either path works. The fact that you've completed this assessment means you're already moving.",cell:'cell-invisible',intro:"You have more to offer than people realise. These activities are about closing that gap \u2014 building visibility and confidence at the same time.",key:'invisible'}
+  charismatic:{name:'The Courteous Charismatic',tag:'Higher Confidence \u00b7 Higher Social Skills',heading:'Competent and connected. The challenge now is keeping it real.',text:"People follow you and you know why. You are warm, articulate, and at ease in most rooms. Right now you are leaving a positive trace \u2014 people feel better after spending time with you. The risk is overextension. As the stakes rise, the pressure to be everything to everyone grows. This result reflects where you are right now, not a fixed identity. Notice the situations where it shifts.",cell:'cell-charismatic',intro:"You have the core skills. This section is about deepening them, staying grounded, and making sure your presence lifts others rather than inadvertently overwhelming them.",key:'charismatic'},
+  arrogant:   {name:'The Occasionally Overconfident',tag:'Higher Confidence \u00b7 Lower Social Skills',heading:'Sharp and capable. The missing piece is empathy.',text:"You get things done and you know your value. Right now the trace you leave can feel mixed \u2014 people respect your capability but may feel talked over or unheard. That is not about your confidence, which is a genuine strength. It is about adding connection to it. The fix is simpler than it sounds. This result reflects current patterns, not who you are. The map shows you where to focus next.",cell:'cell-arrogant',intro:"Your capability is not in question. This section is about making sure that capability lands well \u2014 that people want to follow you rather than just comply with you.",key:'arrogant'},
+  influential:{name:'The Unknowingly Influential',tag:'Lower Confidence \u00b7 Higher Social Skills',heading:'People respond to you better than you realise.',text:"You connect naturally, build trust easily, and are often the person others gravitate towards. The trace you leave is warm and positive. What holds you back is not how others see you \u2014 it is how you see yourself. You hold back instinctively. You wait. The only thing underselling you is you. This result shows where you are right now. The map points to one clear direction: back yourself.",cell:'cell-influential',intro:"You connect well. You are probably better at this than you realise. These activities are about converting that social ability into visible, acknowledged influence.",key:'influential'},
+  invisible:  {name:'The Unfortunately Invisible',tag:'Lower Confidence \u00b7 Lower Social Skills',heading:'Talented but overlooked. Ability is not the gap.',text:"Your work is there. The problem is that not enough people see it clearly yet. Right now the trace you leave is quieter than it should be \u2014 not because of what you contribute, but because of how visible that contribution is. This is the most common starting point in the quadrant, and it is not a fixed state. Charisma is a skill. External confidence \u2014 how you come across \u2014 is faster to build than you think. This result shows where you are right now. The map shows the way forward.",cell:'cell-invisible',intro:"You have more to offer than people realise. These activities are about closing that gap \u2014 building visibility and confidence at the same time.",key:'invisible'}
 };
 
 const PL = {
@@ -558,8 +558,8 @@ function calculateAndRender() {
 }
 
 function downloadPDF() {
-  var name = document.getElementById('result-name').textContent || 'Results';
-  document.title = 'Charisma Quadrant — ' + name;
+  var name = document.getElementById('result-name').textContent || 'Your Results';
+  document.title = 'The Charisma Code \u2014 ' + name;
   window.print();
 }
 function retake() {
