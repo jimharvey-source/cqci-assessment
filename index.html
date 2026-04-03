@@ -307,26 +307,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
       <h3 id="desc-heading"></h3>
       <p id="desc-text"></p>
     </div>
-    <div class="quadrant-grid-section">
-      <h3>Where you sit right now</h3>
-      <div class="q-grid">
-        <div class="q-grid-cell" id="cell-arrogant"><div class="qg-name">The Occasionally Overconfident</div><div class="qg-tag">High confidence &middot; Lower social skills</div></div>
-        <div class="q-grid-cell" id="cell-charismatic"><div class="qg-name">The Courteous Charismatic</div><div class="qg-tag">High confidence &middot; High social skills</div></div>
-        <div class="q-grid-cell" id="cell-invisible"><div class="qg-name">The Unfortunately Invisible</div><div class="qg-tag">Lower confidence &middot; Lower social skills</div></div>
-        <div class="q-grid-cell" id="cell-influential"><div class="qg-name">The Unknowingly Influential</div><div class="qg-tag">Lower confidence &middot; High social skills</div></div>
-      </div>
-    </div>
-    <div id="practice-menu"></div>
-    <div class="breakdown-card"><h3>Confidence &mdash; subscale scores</h3><div id="conf-breakdown"></div></div>
-    <div class="breakdown-card"><h3>Social Skills &mdash; subscale scores</h3><div id="soc-breakdown"></div></div>
-    <div class="action-buttons">
-      <button class="btn-action btn-pdf" onclick="downloadPDF()">
-        <span class="btn-action-icon">&#8681;</span> Download your results as PDF
-      </button>
-      <a class="btn-action btn-subscribe" href="https://presentation-guru.us5.list-manage.com/subscribe?u=816f112ee06e3f52ea77a1f2a&id=7ed36e13c8" target="_blank" rel="noopener">
-        <span class="btn-action-icon">&#9993;</span> Subscribe to Presentation Guru
-      </a>
-    </div>
     <div id="payment-success-banner" class="payment-success-banner" style="display:none">
       <div class="payment-success-icon">&#10003;</div>
       <div class="payment-success-text"><strong>Payment confirmed.</strong> Your full report is ready. <a id="download-report-link" href="#" onclick="downloadReport(event)">Click here to download your PDF report &rarr;</a></div>
@@ -347,6 +327,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
       </button>
       <p class="paid-report-note">Secure payment via Stripe. Instant PDF download.</p>
     </div>
+    <div class="quadrant-grid-section">
+      <h3>Where you sit right now</h3>
+      <div class="q-grid">
+        <div class="q-grid-cell" id="cell-arrogant"><div class="qg-name">The Occasionally Overconfident</div><div class="qg-tag">High confidence &middot; Lower social skills</div></div>
+        <div class="q-grid-cell" id="cell-charismatic"><div class="qg-name">The Courteous Charismatic</div><div class="qg-tag">High confidence &middot; High social skills</div></div>
+        <div class="q-grid-cell" id="cell-invisible"><div class="qg-name">The Unfortunately Invisible</div><div class="qg-tag">Lower confidence &middot; Lower social skills</div></div>
+        <div class="q-grid-cell" id="cell-influential"><div class="qg-name">The Unknowingly Influential</div><div class="qg-tag">Lower confidence &middot; High social skills</div></div>
+      </div>
+    </div>
+    <div id="practice-menu"></div>
+    <div class="breakdown-card"><h3>Confidence &mdash; subscale scores</h3><div id="conf-breakdown"></div></div>
+    <div class="breakdown-card"><h3>Social Skills &mdash; subscale scores</h3><div id="soc-breakdown"></div></div>
+    <div class="action-buttons">
+      <button class="btn-action btn-pdf" onclick="downloadPDF()">
+        <span class="btn-action-icon">&#8681;</span> Download your results as PDF
+      </button>
+      <a class="btn-action btn-subscribe" href="https://presentation-guru.us5.list-manage.com/subscribe?u=816f112ee06e3f52ea77a1f2a&id=7ed36e13c8" target="_blank" rel="noopener">
+        <span class="btn-action-icon">&#9993;</span> Subscribe to Presentation Guru
+      </a>
+    </div>
+
     <div class="cta-card">
       <h3>Read the book</h3>
       <p>Open-Source Charisma explores all four quadrant types in depth &mdash; and what it takes to move between them.</p>
@@ -617,17 +618,14 @@ function submitEmail() {
   btn.disabled = true; btn.textContent = 'Sending...'; ldg.classList.add('visible');
   var url = MAILCHIMP_ACTION.replace('/post?','/post-json?') + '&' + MAILCHIMP_FIELD + '=' + encodeURIComponent(email) + '&c=mcDone';
   var s = document.createElement('script');
-  window.mcDone = function() { s.remove(); delete window.mcDone; _showResultsFromEmail(); };
+  window.mcDone = function() { s.remove(); delete window.mcDone; showResults(); };
   s.src = url;
-  s.onerror = function() { s.remove(); delete window.mcDone; _showResultsFromEmail(); };
+  s.onerror = function() { s.remove(); delete window.mcDone; showResults(); };
   document.head.appendChild(s);
   setTimeout(function() { if (window.mcDone) { delete window.mcDone; showResults(); } }, 4000);
 }
 
-function showResults() {
-  showScreen('screen-results');
-  calculateAndRender();
-}
+// showResults defined below
 
 function scoreItem(q, raw) { return q.rev ? (6 - raw) : raw; }
 
