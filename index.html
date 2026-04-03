@@ -343,8 +343,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
       <button class="btn-action btn-pdf" onclick="downloadPDF()">
         <span class="btn-action-icon">&#8681;</span> Download your results as PDF
       </button>
-      <a class="btn-action btn-subscribe" href="https://presentation-guru.us5.list-manage.com/subscribe?u=816f112ee06e3f52ea77a1f2a&id=7ed36e13c8" target="_blank" rel="noopener">
-        <span class="btn-action-icon">&#9993;</span> Subscribe to Presentation Guru
+      <a class="btn-action btn-subscribe" href="https://mailchi.mp/82ada32da581/charisma-questionnaire-subscriber" target="_blank" rel="noopener">
+        <span class="btn-action-icon">&#9993;</span> Get updates from Open-Source Charisma
       </a>
     </div>
 
@@ -358,7 +358,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
       <p>The Open-Source Charisma Indicator is a self-report development tool. It is designed to help you reflect on your confidence and social skills, identify where you are strongest, and focus your development where it will have the most impact.</p>
       <p>It is not a clinical diagnostic instrument. Your results reflect how you see yourself at the time of taking it. Like all self-report tools, they are shaped by self-perception and context. Use them as a starting point for reflection, not a fixed verdict.</p>
       <p>The OSCI is built on the Charisma Quadrant framework, which models personal impact as the interaction of confidence and social skills across eight sub-competencies.</p>
-      <p>The tool is in active development. We are building a formal evidence base as more people complete the assessment. If you are a researcher or practitioner interested in contributing, <a href="/cdn-cgi/l/email-protection#1d77747033757c6f6b78645d69757870786e6e7c7a787f686e7473786e6e337e7270">get in touch</a>. &nbsp;&nbsp;<a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">Full methodology &rarr;</a></p>
+      <p>The tool is in active development. We are building a formal evidence base as more people complete the assessment. If you are a researcher or practitioner interested in contributing, <a href="mailto:jim.harvey@themessagebusiness.com">jim.harvey@themessagebusiness.com</a>. &nbsp;&nbsp;<a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">Full methodology &rarr;</a></p>
       <p style="margin-top:12px;font-size:11px;color:#aaa">&copy; 2026 James G Harvey / Allcow Trading Co LTD. All rights reserved.</p>
     </div>
     <div class="retake-row"><button class="btn-retake" onclick="retake()">Retake the assessment</button></div>
@@ -382,11 +382,19 @@ function buyReport() {
   btn.disabled = true;
   btn.textContent = 'Preparing checkout...';
 
+  // Fallback: read scores from DOM if _reportScores wasn't stored
   if (!_reportScores) {
-    btn.disabled = false;
-    btn.innerHTML = '<span>&#9733;</span> Get My Full Report &mdash; &pound;9.99';
-    alert('Please complete the assessment first.');
-    return;
+    var cVal = parseInt(document.getElementById('conf-score').textContent) || 0;
+    var sVal = parseInt(document.getElementById('soc-score').textContent) || 0;
+    if (cVal > 0 && sVal > 0) {
+      var qKey = cVal>60 && sVal>60 ? 'charismatic' : cVal>60 ? 'arrogant' : sVal>60 ? 'influential' : 'invisible';
+      _reportScores = { confScore:cVal, socScore:sVal, quadrant:qKey, subscaleScores:{} };
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<span>&#9733;</span> Get My Full Report &mdash; &pound;9.99';
+      alert('Please complete the assessment first.');
+      return;
+    }
   }
 
   fetch('/api/create-checkout', {
