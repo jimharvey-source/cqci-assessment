@@ -161,6 +161,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
 .btn-cta:hover{background:#d4b060}
 .retake-row{text-align:center;margin-top:8px}
 .btn-retake{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:underline}
+.action-buttons{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.btn-action{flex:1;min-width:200px;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 24px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;border:none;transition:all 0.2s;text-align:center}
+.btn-pdf{background:var(--white);color:var(--navy);border:2px solid var(--navy)}
+.btn-pdf:hover{background:var(--navy);color:var(--white)}
+.btn-subscribe{background:var(--teal);color:var(--white)}
+.btn-subscribe:hover{background:#156358}
+.btn-action-icon{font-size:16px;flex-shrink:0}
+@media(max-width:560px){.action-buttons{flex-direction:column}}
+@media print{
+  #screen-intro,#screen-questions,#screen-email,#progress-bar,.action-buttons,.retake-row,.cta-card{display:none!important}
+  #screen-results{display:block!important}
+  body{background:white;font-size:12px}
+  .results-hero{padding:32px 24px 56px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .results-body{padding:0 16px}
+  .score-cards{margin-top:-28px;margin-bottom:20px}
+  .score-card{box-shadow:none;border:1px solid #ddd}
+  .practice-cat-body{display:block!important}
+  .practice-category{break-inside:avoid}
+  .breakdown-card{break-inside:avoid}
+  .quadrant-desc-card{break-inside:avoid}
+  .results-hero::before{display:none}
+}
 @media(max-width:560px){.email-card{padding:40px 28px}.score-cards{grid-template-columns:1fr}.q-grid{grid-template-columns:1fr}.scale-word{display:none}.breakdown-card,.quadrant-desc-card,.practice-header{padding:24px}.practice-item{padding:16px}}
 </style>
 </head>
@@ -244,6 +266,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
     <div id="practice-menu"></div>
     <div class="breakdown-card"><h3>Confidence &mdash; subscale scores</h3><div id="conf-breakdown"></div></div>
     <div class="breakdown-card"><h3>Social Skills &mdash; subscale scores</h3><div id="soc-breakdown"></div></div>
+    <div class="action-buttons">
+      <button class="btn-action btn-pdf" onclick="downloadPDF()">
+        <span class="btn-action-icon">&#8681;</span> Download your results as PDF
+      </button>
+      <a class="btn-action btn-subscribe" href="https://presentation-guru.us5.list-manage.com/subscribe?u=816f112ee06e3f52ea77a1f2a&id=7ed36e13c8" target="_blank" rel="noopener">
+        <span class="btn-action-icon">&#9993;</span> Subscribe to Presentation Guru
+      </a>
+    </div>
     <div class="cta-card">
       <h3>Read the book</h3>
       <p>Open-Source Charisma explores how all four quadrant types develop &mdash; and what changes when you move.</p>
@@ -527,6 +557,11 @@ function calculateAndRender() {
   rb('soc-breakdown',  sSubs, '#1a7a6e');
 }
 
+function downloadPDF() {
+  var name = document.getElementById('result-name').textContent || 'Results';
+  document.title = 'Charisma Quadrant — ' + name;
+  window.print();
+}
 function retake() {
   answers = {};
   showScreen('screen-intro');
