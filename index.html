@@ -224,6 +224,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
   </div>
   <button class="btn-primary" onclick="startAssessment()">Find Your Type</button>
   <p class="intro-note">No right or wrong answers — rate how you typically behave, not how you'd like to.</p>
+  <p class="osci-disclaimer">The OSCI is a self-report development tool, not a clinical assessment. <a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">About the OSCI &rarr;</a></p>
   <div class="intro-book-row">
     <a class="btn-book-link" href="https://www.amazon.com/Open-Source-Charisma-small-Confidence/dp/B0DB683KZ6" target="_blank" rel="noopener">
       <span>&#9733;</span> Get the book on Amazon
@@ -326,22 +327,128 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
         <span class="btn-action-icon">&#9993;</span> Subscribe to Presentation Guru
       </a>
     </div>
+    <div id="payment-success-banner" class="payment-success-banner" style="display:none">
+      <div class="payment-success-icon">&#10003;</div>
+      <div class="payment-success-text"><strong>Payment confirmed.</strong> Your full report is ready. <a id="download-report-link" href="#" onclick="downloadReport(event)">Click here to download your PDF report &rarr;</a></div>
+    </div>
+    <div class="paid-report-card" id="paid-report-card">
+      <div class="paid-report-badge">Full Report &mdash; &pound;9.99</div>
+      <h3>Get your complete OSCI report</h3>
+      <p>Your basic result shows where you sit. The full report shows you exactly why &mdash; and gives you a personalised roadmap to move forward.</p>
+      <ul class="paid-report-features">
+        <li>Full subscale breakdown across all eight competency areas</li>
+        <li>Your two priority development areas identified and explained</li>
+        <li>Personalised practice menu from <em>Open-Source Charisma</em></li>
+        <li>Development roadmap for this week, this month, and this year</li>
+        <li>Printable PDF delivered instantly</li>
+      </ul>
+      <button class="btn-buy-report" id="btn-buy-report" onclick="buyReport()">
+        <span>&#9733;</span> Get My Full Report &mdash; &pound;9.99
+      </button>
+      <p class="paid-report-note">Secure payment via Stripe. Instant PDF download.</p>
+    </div>
     <div class="cta-card">
       <h3>Read the book</h3>
       <p>Open-Source Charisma explores all four quadrant types in depth &mdash; and what it takes to move between them.</p>
       <a class="btn-cta" href="https://www.themessagebusiness.com" target="_blank">Find out more</a>
     </div>
+    <div class="pdf-footer-note">
+      <h4>About the OSCI</h4>
+      <p>The Open-Source Charisma Indicator is a self-report development tool. It is designed to help you reflect on your confidence and social skills, identify where you are strongest, and focus your development where it will have the most impact.</p>
+      <p>It is not a clinical diagnostic instrument. Your results reflect how you see yourself at the time of taking it. Like all self-report tools, they are shaped by self-perception and context. Use them as a starting point for reflection, not a fixed verdict.</p>
+      <p>The OSCI is built on the Charisma Quadrant framework, which models personal impact as the interaction of confidence and social skills across eight sub-competencies.</p>
+      <p>The tool is in active development. We are building a formal evidence base as more people complete the assessment. If you are a researcher or practitioner interested in contributing, <a href="/cdn-cgi/l/email-protection#1d77747033757c6f6b78645d69757870786e6e7c7a787f686e7473786e6e337e7270">get in touch</a>. &nbsp;&nbsp;<a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">Full methodology &rarr;</a></p>
+      <p style="margin-top:12px;font-size:11px;color:#aaa">&copy; 2026 James G Harvey / Allcow Trading Co LTD. All rights reserved.</p>
+    </div>
     <div class="retake-row"><button class="btn-retake" onclick="retake()">Retake the assessment</button></div>
   </div>
 </section>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const MAILCHIMP_ACTION = 'https://jim-harvey.us5.list-manage.com/subscribe/post?u=816f112ee06e3f52ea77a1f2a&id=70fa5f8e7e&f_id=00cd40edf0';
 const MAILCHIMP_FIELD  = 'EMAIL';
 
 function openModal(){document.getElementById('book-modal').classList.add('active');document.body.style.overflow='hidden';}
 function closeModal(){document.getElementById('book-modal').classList.remove('active');document.body.style.overflow='';}
 function closeModalOutside(e){if(e.target===document.getElementById('book-modal'))closeModal();}
+
+const STRIPE_PK = 'pk_test_51TCIFBPNGm6yegi0zQqMprmIDV9qGD3ygX3gxHVDLzmt6bMwuGn1Qi9ievcCm4NVeuMFFndsztI8GYXSfeivkDSV00UCnkXQQ7';
+var _reportScores = null;
+var _reportSessionId = null;
+
+function buyReport() {
+  var btn = document.getElementById('btn-buy-report');
+  btn.disabled = true;
+  btn.textContent = 'Preparing checkout...';
+
+  if (!_reportScores) {
+    btn.disabled = false;
+    btn.innerHTML = '<span>&#9733;</span> Get My Full Report &mdash; &pound;9.99';
+    alert('Please complete the assessment first.');
+    return;
+  }
+
+  fetch('/api/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      scores: _reportScores,
+      email: document.getElementById('email-input') ? document.getElementById('email-input').value : ''
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<span>&#9733;</span> Get My Full Report &mdash; &pound;9.99';
+      alert('Could not start checkout. Please try again.');
+    }
+  })
+  .catch(function(err){
+    btn.disabled = false;
+    btn.innerHTML = '<span>&#9733;</span> Get My Full Report &mdash; &pound;9.99';
+    alert('Something went wrong. Please try again.');
+  });
+}
+
+function downloadReport(e) {
+  e.preventDefault();
+  if (!_reportSessionId || !_reportScores) { alert('Report data not available. Please retake the assessment.'); return; }
+  var encoded = btoa(JSON.stringify(_reportScores));
+  var url = '/api/generate-report?session_id=' + encodeURIComponent(_reportSessionId) + '&s=' + encodeURIComponent(encoded);
+  window.open(url, '_blank');
+}
+
+function checkPaymentReturn() {
+  var params = new URLSearchParams(window.location.search);
+  var report = params.get('report');
+  var sessionId = params.get('session_id');
+  var s = params.get('s');
+
+  if (report === 'success' && sessionId && s) {
+    try {
+      var decoded = JSON.parse(atob(decodeURIComponent(s)));
+      _reportScores = decoded;
+      _reportSessionId = sessionId;
+      // Show results immediately
+      showResults(decoded);
+      // Show success banner
+      document.getElementById('payment-success-banner').style.display = 'flex';
+      document.getElementById('paid-report-card').style.display = 'none';
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } catch(e) {
+      console.error('Could not parse return scores', e);
+    }
+  } else if (report === 'cancelled') {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', checkPaymentReturn);
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
@@ -510,9 +617,9 @@ function submitEmail() {
   btn.disabled = true; btn.textContent = 'Sending...'; ldg.classList.add('visible');
   var url = MAILCHIMP_ACTION.replace('/post?','/post-json?') + '&' + MAILCHIMP_FIELD + '=' + encodeURIComponent(email) + '&c=mcDone';
   var s = document.createElement('script');
-  window.mcDone = function() { s.remove(); delete window.mcDone; showResults(); };
+  window.mcDone = function() { s.remove(); delete window.mcDone; _showResultsFromEmail(); };
   s.src = url;
-  s.onerror = function() { s.remove(); delete window.mcDone; showResults(); };
+  s.onerror = function() { s.remove(); delete window.mcDone; _showResultsFromEmail(); };
   document.head.appendChild(s);
   setTimeout(function() { if (window.mcDone) { delete window.mcDone; showResults(); } }, 4000);
 }
@@ -568,7 +675,39 @@ function renderPracticeMenu(qk, ss) {
 
 function tc(id){ document.getElementById(id).classList.toggle('open'); }
 
-function calculateAndRender() {
+
+function showResults(preloadedScores) {
+  showScreen('screen-results');
+  if (preloadedScores) {
+    renderFromScores(preloadedScores);
+  } else {
+    calculateAndRender();
+  }
+}
+
+function renderFromScores(scores) {
+  var cT = scores.confScore, sT = scores.socScore;
+  var ss = scores.subscaleScores;
+  var qKey = scores.quadrant;
+  var qMap = {charismatic:Q.charismatic,arrogant:Q.arrogant,influential:Q.influential,invisible:Q.invisible};
+  var q = qMap[qKey] || Q.invisible;
+  document.getElementById('result-name').textContent = q.name;
+  document.getElementById('result-tag').textContent = q.tag;
+  document.getElementById('conf-score').textContent = cT;
+  document.getElementById('soc-score').textContent = sT;
+  setTimeout(function(){ document.getElementById('conf-bar').style.width=cT+'%'; document.getElementById('soc-bar').style.width=sT+'%'; }, 100);
+  document.getElementById('desc-heading').textContent = q.heading;
+  document.getElementById('desc-text').textContent = q.text;
+  ['cell-charismatic','cell-arrogant','cell-influential','cell-invisible'].forEach(function(id){ document.getElementById(id).classList.remove('active'); });
+  document.getElementById(q.cell).classList.add('active');
+  renderPracticeMenu(q.key, ss);
+  var cSubs=Object.keys(ss).filter(function(k){return ss[k].part==='a';}).map(function(k){return [k,ss[k]];});
+  var sSubs=Object.keys(ss).filter(function(k){return ss[k].part==='b';}).map(function(k){return [k,ss[k]];});
+  rb('conf-breakdown',cSubs,'#1a3357');
+  rb('soc-breakdown',sSubs,'#1a7a6e');
+}
+function calculateAndRender(preloadedScores) {
+  if (preloadedScores) { renderFromScores(preloadedScores); return; }
   var cT=0, sT=0, ss={};
   QUESTIONS.forEach(function(q) {
     var raw = answers[q.id] || 3;
@@ -582,6 +721,9 @@ function calculateAndRender() {
   else if (cT>60 && sT<=60) quad = Q.arrogant;
   else if (cT<=60 && sT>60) quad = Q.influential;
   else                       quad = Q.invisible;
+
+  // Store scores for paid report
+  _reportScores = { confScore:cT, socScore:sT, quadrant:quad.key, subscaleScores:ss };
 
   document.getElementById('result-name').textContent = quad.name;
   document.getElementById('result-tag').textContent  = quad.tag;
@@ -614,13 +756,4 @@ function calculateAndRender() {
 
 function downloadPDF() {
   var name = document.getElementById('result-name').textContent || 'Your Results';
-  document.title = 'Open-Source Charisma \u2014 ' + name;
-  window.print();
-}
-function retake() {
-  answers = {};
-  showScreen('screen-intro');
-}
-</script>
-</body>
-</html>
+  docume

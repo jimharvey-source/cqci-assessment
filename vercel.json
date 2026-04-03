@@ -1,9 +1,8 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "https://opensourcecharisma.com/assessment",
-      "permanent": true
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "functions": {
+    "api/create-checkout.js": { "maxDuration": 10 },
+    "api/generate-report.js": { "maxDuration": 30, "memory": 512 }
+  }
 }
