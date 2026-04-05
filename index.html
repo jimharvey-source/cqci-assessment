@@ -207,6 +207,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
   .results-hero::before{display:none}
 }
 @media(max-width:560px){.email-card{padding:40px 28px}.score-cards{grid-template-columns:1fr}.q-grid{grid-template-columns:1fr}.breakdown-card,.quadrant-desc-card,.practice-header{padding:24px}.practice-item{padding:16px}.scale-row{grid-template-columns:1fr;gap:6px}.scale-label{flex-direction:row;justify-content:flex-start;padding:12px 16px;gap:14px;text-align:left}.scale-num{font-size:16px;min-width:20px;text-align:center}.scale-word{font-size:13px;color:var(--muted)}}
+
+.paid-report-card{background:linear-gradient(135deg,var(--navy) 0%,#1a3357 100%);border:2px solid var(--gold);border-radius:4px;padding:40px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+.paid-report-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:rgba(201,168,76,0.08);border-radius:50%}
+.paid-report-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:16px}
+.paid-report-card h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--white);margin-bottom:12px;font-weight:700}
+.paid-report-card p{font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:8px;line-height:1.7;font-weight:300;max-width:460px;margin-left:auto;margin-right:auto}
+.paid-report-features{list-style:none;margin:16px auto 28px;max-width:400px;text-align:left;padding:0}
+.paid-report-features li{font-size:13px;color:rgba(255,255,255,0.7);padding:5px 0;display:flex;align-items:flex-start;gap:10px}
+.paid-report-features li::before{content:'→';color:var(--gold);font-size:11px;margin-top:2px;flex-shrink:0}
+.btn-buy-report{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:16px 40px;border:none;border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none}
+.btn-buy-report:hover{background:#d4b060;transform:translateY(-1px)}
+.btn-buy-report:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.paid-report-note{font-size:12px;color:rgba(255,255,255,0.35);margin-top:12px}
+.payment-success-banner{background:rgba(26,122,110,0.15);border:1px solid var(--teal);border-radius:4px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.payment-success-icon{font-size:24px;flex-shrink:0}
+.payment-success-text{font-size:14px;color:var(--text);line-height:1.6}
+.payment-success-text strong{color:var(--teal)}
+.payment-success-text a{color:var(--teal);font-weight:600}
+@media print{.paid-report-card,.payment-success-banner{display:none!important}}
 </style>
 </head>
 <body>
@@ -351,21 +370,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--te
     <div class="cta-card">
       <h3>Read the book</h3>
       <p>Open-Source Charisma explores all four quadrant types in depth &mdash; and what it takes to move between them.</p>
-      <a class="btn-cta" href="https://www.themessagebusiness.com" target="_blank">Find out more</a>
+      <a class="btn-cta" href="https://opensourcecharisma.com/book" target="_blank">About the book &rarr;</a>
     </div>
     <div class="pdf-footer-note">
       <h4>About the OSCI</h4>
       <p>The Open-Source Charisma Indicator is a self-report development tool. It is designed to help you reflect on your confidence and social skills, identify where you are strongest, and focus your development where it will have the most impact.</p>
       <p>It is not a clinical diagnostic instrument. Your results reflect how you see yourself at the time of taking it. Like all self-report tools, they are shaped by self-perception and context. Use them as a starting point for reflection, not a fixed verdict.</p>
       <p>The OSCI is built on the Charisma Quadrant framework, which models personal impact as the interaction of confidence and social skills across eight sub-competencies.</p>
-      <p>The tool is in active development. We are building a formal evidence base as more people complete the assessment. If you are a researcher or practitioner interested in contributing, <a href="mailto:jim.harvey@themessagebusiness.com">jim.harvey@themessagebusiness.com</a>. &nbsp;&nbsp;<a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">Full methodology &rarr;</a></p>
+      <p>The tool is in active development. We are building a formal evidence base as more people complete the assessment. If you are a researcher or practitioner interested in contributing, <a href="/cdn-cgi/l/email-protection#4c26252162242d3e3a29350c38242921293f3f2d2b292e393f2522293f3f622f2321"><span class="__cf_email__" data-cfemail="a3c9cace8dcbc2d1d5c6dae3d7cbc6cec6d0d0c2c4c6c1d6d0cacdc6d0d08dc0ccce">[email&#160;protected]</span></a>. &nbsp;&nbsp;<a href="https://opensourcecharisma.com/methodology" target="_blank" rel="noopener">Full methodology &rarr;</a></p>
       <p style="margin-top:12px;font-size:11px;color:#aaa">&copy; 2026 James G Harvey / Allcow Trading Co LTD. All rights reserved.</p>
     </div>
     <div class="retake-row"><button class="btn-retake" onclick="retake()">Retake the assessment</button></div>
   </div>
 </section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const MAILCHIMP_ACTION = 'https://jim-harvey.us5.list-manage.com/subscribe/post?u=816f112ee06e3f52ea77a1f2a&id=70fa5f8e7e&f_id=00cd40edf0';
 const MAILCHIMP_FIELD  = 'EMAIL';
 
@@ -755,11 +774,4 @@ function calculateAndRender(preloadedScores) {
     }).join('');
   }
   var cSubs = Object.keys(ss).filter(function(k){return ss[k].part==='a';}).map(function(k){return [k,ss[k]];});
-  var sSubs = Object.keys(ss).filter(function(k){return ss[k].part==='b';}).map(function(k){return [k,ss[k]];});
-  rb('conf-breakdown', cSubs, '#1a3357');
-  rb('soc-breakdown',  sSubs, '#1a7a6e');
-}
-
-function downloadPDF() {
-  var name = document.getElementById('result-name').textContent || 'Your Results';
-  docume
+  var sSubs = Object.keys(ss).filter(function
