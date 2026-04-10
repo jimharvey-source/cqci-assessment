@@ -28,7 +28,7 @@ const QUADRANTS = {
     colour: [26, 122, 110]
   },
   invisible: {
-    name: 'The Unfortunately Invisible',
+    name: 'The Incidentally Invisible',
     tag: 'Lower Confidence · Lower Social Skills',
     heading: 'Talented but overlooked. Ability is not the gap.',
     text: 'Your work is there. The problem is that not enough people see it clearly yet. Right now the trace you leave is quieter than it should be — not because of what you contribute, but because of how visible that contribution is. External confidence is faster to build than you think.',
