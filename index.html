@@ -404,6 +404,7 @@ var _reportScores = null;
 var _reportSessionId = null;
 
 function buyReport() {
+  if(typeof gtag!=='undefined'){gtag('event','report_purchase_intent',{'event_category':'OSCI','event_label':'Buy report clicked','value':9.99});}
   var btn = document.getElementById('btn-buy-report');
   btn.disabled = true;
   btn.textContent = 'Preparing checkout...';
@@ -640,6 +641,7 @@ function goToEmail() {
 }
 
 function submitEmail() {
+  if(typeof gtag!=='undefined'){gtag('event','email_capture',{'event_category':'OSCI','event_label':'Email submitted before results'});}
   var inp = document.getElementById('email-input');
   var err = document.getElementById('email-error');
   var btn = document.getElementById('btn-email-submit');
