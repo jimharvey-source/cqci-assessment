@@ -712,6 +712,7 @@ function tc(id){ document.getElementById(id).classList.toggle('open'); }
 
 function showResults(preloadedScores) {
   showScreen('screen-results');
+  if(typeof gtag!=='undefined'){gtag('event','assessment_complete',{'event_category':'OSCI','event_label':'Results screen loaded'});}
   if (preloadedScores) {
     renderFromScores(preloadedScores);
   } else {
